@@ -1,0 +1,106 @@
+<!--------------------------------------------------------------------------------
+	
+	Aplikacja three.js - 06 swiatlo (swiatlo porusza sie relatywnie w stosunku do obiektu)
+		Poniewaz Three.js ma spojrzenie z punktu widzenia obiektu wiec aby dokonac obrotu do okola osi
+		w pierwszej kolejnosci nalezy stworzyc obiekty ktore juz sa przesuniete
+		takie obiekty dodajemy do grupy i teraz gdy obracamy grupe to obiekty obracaja sie po okregu wokol srodka grupy
+	
+	P.Kowalczyk styczen 2018
+	Na podstawie 
+	https://threejs.org/docs/index.html#manual/introduction/Creating-a-scene
+
+Zmiany:
+wersja orginalna							P.K. 01/01/2018
+dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
+
+-------------------------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>06-light-6</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script src='js/StartPack.js'>//biblioteka do pustej sceny</script>
+		<script src="js/OBJLoader.js">//wczytywanie pilku obj</script>
+		<script src="js/MTLLoader.js">//wczytanie dodatkowego pliku materialow do obj</script>
+		<script src="js/OrbitControls.js">//biblioteka do kontroli widoku</script>
+		<script src="js/Board.js">//biblioteka do kontroli widoku</script>
+		<script>
+
+			//Grupa zawirajaca wszystkie obiekty na scenie
+			var group = new THREE.Group();
+
+			var board = new Board();
+			board.bialePionki();
+			board.bialeWieze();
+			// board.bialeKonie();
+			// board.bialeGonice();
+			// board.bialekrolIKrolowa();
+			board.czarnePionki();
+			var lightPos = 1;
+
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			camera.position.y =35;
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+			//camera.lookAt(camera.position.x-2.5, 0 ,camera.position.z-2.5);
+			renderer.setClearColor( 0xffffff, 1 );
+
+
+			//Ladowanie pionka
+			//var lightloader = StartPack;
+			//lightloader.loadbaseLight();
+
+            ////////////////////////////
+            //Utworzenie kontrolera dzieki ktoremu mozna myszka zmieniac polozenie kamery na scenie
+            //
+			var Orbit = new THREE.OrbitControls( camera, renderer.domElement );
+			Orbit.update();
+			Orbit.enablePan = false;
+		
+			//dla swiatla i jego wizualizacji tworzymy jeszcze jedna grupe
+			//dzieki temu bedzie nam latwo przesuwac cala grupe a nie osobno swiatlo i 
+			//osobno kulke symbolizujaca jego lokalizacje w przestrzeni
+			var groupLight = new THREE.Group();
+			
+			//tworzymy swiatlo ambient
+			var ambientLight = new THREE.AmbientLight( 0x404040 );
+			scene.add(ambientLight);
+			
+			//tworzymy swiatlo punktowe
+			var light = new THREE.PointLight( 0xffffff, 1, 100 );
+			light.position.set( 0, 15, 0 );
+			groupLight.add( light );
+
+			// //tworzymy sfere w miejscu gdzie jest swiatlo
+			// var sphere = new THREE.SphereGeometry( 0.1, 10, 10);
+			// var smesh = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: 0xff8000 }) );
+			// smesh.position.copy( light.position );	
+			// groupLight.add(smesh);
+			
+		
+			//dodajemy swiatlo i kulke do grupy ktora bedzie zawierala jeszcze kostke
+			group.add(groupLight);
+			
+			//dodajemy grupe do sceny
+			scene.add(group);
+
+			var animate = function () {
+				requestAnimationFrame( animate );
+				renderer.render(scene, camera);
+		};
+
+			animate();		
+		</script>
+	</body>
+</html>
