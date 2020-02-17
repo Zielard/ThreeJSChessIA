@@ -17,9 +17,9 @@ var pawns = {
 	krolowa: 0,};
 
 var StartPack = {
-  loadBaseObj : function() {				
+  loadBaseObj : function() {		
+			board = new Board();		
 			StartPack.AddObject(0);
-			board = new Board();
   }
   ,
   AddObject : function(i) {
@@ -100,42 +100,106 @@ let tabObj = ['pionek',
 		}
 		else
 		{
-			StartPack.AddPawns();
-			StartPack.AddHightFigure();
+			console.log(this);
+			StartPack.AddPawns(this);
+			//StartPack.AddHightFigure();
 		}
 		});
 		
 	});
 	}
   ,
-AddPawns : function() {
-	let xForGrid = -15;
-	let yForGrid = 2;
-	let zForGrid = -10;
+AddPawns : function(windowThis) {
+
+
+	console.log(windowThis);
 	for(let i=0;i<8;i++)
 	{
-		let object = pawns.pionek.clone();
-			object.position.x = xForGrid;
-			object.position.y = yForGrid;
-			object.position.z = zForGrid;  
-			xForGrid +=5;   
-		scene.add(object);
+		for(let j=0;j<8;j++)
+		{
+			if(i==0 || i==7)
+			{
+				if(j==0 || j==7)
+				{
+					board.BoardTable[i][j].figure = pawns.wieza.clone();
+					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					console.log(board.BoardTable[i][j]);
+					scene.add(board.BoardTable[i][j].figure);
+				}
+				if(j==1 || j==6)
+				{
+					board.BoardTable[i][j].figure = pawns.kon.clone();
+					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					scene.add(board.BoardTable[i][j].figure);
+				}
+				if(j==2 || j==5)
+				{
+					board.BoardTable[i][j].figure = pawns.goniec.clone();
+					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					scene.add(board.BoardTable[i][j].figure);
+				}
+				if(j==3)
+				{
+					board.BoardTable[i][j].figure = pawns.krol.clone();
+					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					scene.add(board.BoardTable[i][j].figure);
+				}
+				if(j==4)
+				{
+					board.BoardTable[i][j].figure = pawns.krolowa.clone();
+					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					scene.add(board.BoardTable[i][j].figure);
+				}
+
+			}
+			else if(i==1 || i==6)
+			{
+				board.BoardTable[i][j].figure = pawns.pionek.clone();
+				board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
+				board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
+				board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+				scene.add(board.BoardTable[i][j].figure);
+			}
+		}
 	}
 
-	xForGrid = -15;
-	yForGrid = 2;
-	zForGrid = 15;
-	var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x404a43} );	
-	for(let i=0;i<8;i++)
-	{
-			let object = pawns.pionek.clone();
-			object.children[0].material = ModelMaterial;
-			object.position.x = xForGrid;
-			object.position.y = yForGrid;
-			object.position.z = zForGrid;  
-			xForGrid +=5;   
-		scene.add(object);
-	}
+	// let xForGrid = -15;
+	// let yForGrid = 2;
+	// let zForGrid = -10;
+	// for(let i=0;i<8;i++)
+	// {
+	// 	let object = pawns.pionek.clone();
+	// 		object.position.x = xForGrid;
+	// 		object.position.y = yForGrid;
+	// 		object.position.z = zForGrid;  
+	// 		xForGrid +=5;   
+	// 	scene.add(object);
+	// }
+
+	// xForGrid = -15;
+	// yForGrid = 2;
+	// zForGrid = 15;
+	// var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x404a43} );	
+	// for(let i=0;i<8;i++)
+	// {
+	// 		let object = pawns.pionek.clone();
+	// 		object.children[0].material = ModelMaterial;
+	// 		object.position.x = xForGrid;
+	// 		object.position.y = yForGrid;
+	// 		object.position.z = zForGrid;  
+	// 		xForGrid +=5;   
+	// 	scene.add(object);
+	// }
 }
 
 ,
