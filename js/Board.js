@@ -48,30 +48,12 @@ class Board {
         let zForGrid = -10;
         for(let i=0;i<8;i++)
         {
-            var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
-            var mtlLoader = new THREE.MTLLoader();
-            mtlLoader.setPath('obj/');
-            mtlLoader.load('pionek.mtl', function(materials) {
-            materials.flatShading = false;
-            materials.preload();
-            var objLoader = new THREE.OBJLoader();
-            objLoader.setMaterials(materials);
-            objLoader.setPath('obj/');
-            objLoader.load('pionek.obj', function(object) {
-            object.smooth = true;
-            object.traverse( function( child ) {
-                    if ( child instanceof THREE.Mesh ) {
-                        child.material = ModelMaterial;
-                        child.geometry.scale(2,2,2);
-                    }
-                } );
+            let object = pawns[0];
                 object.position.x = xForGrid;
                 object.position.y = yForGrid;
                 object.position.z = zForGrid;  
                 xForGrid +=5;   
             scene.add(object);
-            });
-            });
         }
       }
 
@@ -90,7 +72,8 @@ class Board {
             var objLoader = new THREE.OBJLoader();
             objLoader.setMaterials(materials);
             objLoader.setPath('obj/');
-            objLoader.load('pionek.obj', function(object) {
+            objLoader.load('pionek.obj', function(object) 
+            {
             object.smooth = true;
             object.traverse( function( child ) {
                     if ( child instanceof THREE.Mesh ) {

@@ -36,14 +36,12 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 
 			//Grupa zawirajaca wszystkie obiekty na scenie
 			var group = new THREE.Group();
-
-			var board = new Board();
-			board.bialePionki();
-			board.bialeWieze();
+			//board.bialePionki();
+			//board.bialeWieze();
 			// board.bialeKonie();
 			// board.bialeGonice();
 			// board.bialekrolIKrolowa();
-			board.czarnePionki();
+			//board.czarnePionki();
 			var lightPos = 1;
 
 			var scene = new THREE.Scene();
@@ -56,10 +54,10 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			//camera.lookAt(camera.position.x-2.5, 0 ,camera.position.z-2.5);
 			renderer.setClearColor( 0xffffff, 1 );
 
-
-			//Ladowanie pionka
-			//var lightloader = StartPack;
-			//lightloader.loadbaseLight();
+			//Szachownica
+			var board;
+			//Ladowanie pionkow
+			StartPack.loadBaseObj();
 
             ////////////////////////////
             //Utworzenie kontrolera dzieki ktoremu mozna myszka zmieniac polozenie kamery na scenie
