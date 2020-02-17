@@ -1,6 +1,80 @@
 class Board {
     constructor(brand) {
-        var boardTab
+
+        // Create one dimensional array 
+        this.BoardTable = new Array(8);
+        
+        // Loop to create 2D array using 1D array 
+        for (var i = 0; i < this.BoardTable.length; i++) { 
+            this.BoardTable[i] = new Array(8); 
+        }
+
+                    //var h = 0; 
+            
+            // Loop to initilize 2D array elements. 
+            for (var i = 0; i < 8; i++) { 
+                for (var j = 0; j < 8; j++) { 
+                    if(i==0 || i==7)
+                    {
+                        if(j==0)
+                        {
+                            this.BoardTable[i][j] =4;
+                        }
+                        if(j==1)
+                        {
+                            this.BoardTable[i][j] =2;
+                        }
+                        if(j==2)
+                        {
+                            this.BoardTable[i][j] =3;
+                        }
+                        if(j==3)
+                        {
+                            this.BoardTable[i][j] =5;
+                        }
+                        if(j==4)
+                        {
+                            this.BoardTable[i][j] =6;
+                        }
+                        if(j==5)
+                        {
+                            this.BoardTable[i][j] =3;
+                        }
+                        if(j==6)
+                        {
+                            this.BoardTable[i][j] =2;
+                        }
+                        if(j==7)
+                        {
+                            this.BoardTable[i][j] =4;
+                        }
+
+                    }
+                    else if(i==1)
+                    {
+                        this.BoardTable[i][j] =1;
+                    }
+                    else if(i==6)
+                    {
+                        this.BoardTable[i][j] =1;
+                    }
+                    else
+                    {
+                        this.BoardTable[i][j] =0;
+                    }
+                } 
+            } 
+
+        // Loop to display the elements of 2D array.  
+        for (var i = 0; i < 8; i++) { 
+            let tempstr = "";
+            for (var j = 0; j <8; j++)    { 
+                //tempstr += ("["+i+"]["+j+"]");
+                tempstr += (this.BoardTable[i][j] + " ");
+            } 
+            console.log(tempstr); 
+        } 
+
         var black = true;
         var xForGrid = -15;
         var yForGrid = 0;

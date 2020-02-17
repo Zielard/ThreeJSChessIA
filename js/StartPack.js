@@ -125,7 +125,7 @@ AddPawns : function() {
 	xForGrid = -15;
 	yForGrid = 2;
 	zForGrid = 15;
-	var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x000000} );	
+	var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x404a43} );	
 	for(let i=0;i<8;i++)
 	{
 			let object = pawns.pionek.clone();
@@ -188,7 +188,7 @@ AddHightFigure : function() {
 	xForGrid = -15;
 	yForGrid = 2;
 	zForGrid = 20;
-	var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x000000} );	
+	var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x404a43} );	
 	for(let i=1;i<9;i++)
 	{
 		let object;
