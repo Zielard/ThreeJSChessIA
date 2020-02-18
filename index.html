@@ -33,15 +33,22 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 		<script src="js/MTLLoader.js">//wczytanie dodatkowego pliku materialow do obj</script>
 		<script src="js/OrbitControls.js">//biblioteka do kontroli widoku</script>
 		<script>
+			//FOR RAYCST!!!//////////////////////////////////////////////////////////
+			var raycaster;
+			raycaster = new THREE.Raycaster();
+			var mouse = new THREE.Vector2(), INTERSECTED;
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+			function onDocumentMouseMove( event ) {
+				event.preventDefault();
+				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+			}
+			/////////////////////////////////////////////////////////////////////////
 
-			//Grupa zawirajaca wszystkie obiekty na scenie
+			//Grupa zawirajaca wszystkie obiekty zamiast pionkow
 			var group = new THREE.Group();
-			//board.bialePionki();
-			//board.bialeWieze();
-			// board.bialeKonie();
-			// board.bialeGonice();
-			// board.bialekrolIKrolowa();
-			//board.czarnePionki();
+			//Grupa zawirajaca wszystkie obiekty na scenie
+			var pawnsGroup = new THREE.Group();
 			var lightPos = 1;
 
 			var scene = new THREE.Scene();
@@ -92,13 +99,31 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			
 			//dodajemy grupe do sceny
 			scene.add(group);
-
+			scene.add(pawnsGroup);
 			var animate = function () {
 				requestAnimationFrame( animate );
 				renderer.render(scene, camera);
+				raycast();
 		};
 
-			animate();		
+			animate();
+			function raycast()
+			{
+				raycaster.setFromCamera( mouse, camera );
+				var intersects = raycaster.intersectObjects( scene.children , true );
+					if ( intersects.length > 0 ) {
+						//console.log(INTERSECTED);
+						if ( INTERSECTED != intersects[ 0 ].object.parent ) {
+							INTERSECTED = intersects[ 0 ].object;
+							INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+							INTERSECTED.material.emissive.setHex( 0xff0000 );
+							console.log(INTERSECTED);
+						}
+					} else {
+						if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( 0x000000);
+						INTERSECTED = null;
+					}
+			}		
 		</script>
 	</body>
 </html>

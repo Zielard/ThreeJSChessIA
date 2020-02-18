@@ -125,8 +125,8 @@ AddPawns : function(windowThis) {
 					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
 					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
-					console.log(board.BoardTable[i][j]);
-					scene.add(board.BoardTable[i][j].figure);
+					//console.log(board.BoardTable[i][j]);
+					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==1 || j==6)
 				{
@@ -134,7 +134,7 @@ AddPawns : function(windowThis) {
 					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
 					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
-					scene.add(board.BoardTable[i][j].figure);
+					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==2 || j==5)
 				{
@@ -142,7 +142,7 @@ AddPawns : function(windowThis) {
 					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
 					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
-					scene.add(board.BoardTable[i][j].figure);
+					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==3)
 				{
@@ -150,7 +150,7 @@ AddPawns : function(windowThis) {
 					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
 					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
-					scene.add(board.BoardTable[i][j].figure);
+					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==4)
 				{
@@ -158,48 +158,22 @@ AddPawns : function(windowThis) {
 					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
 					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
-					scene.add(board.BoardTable[i][j].figure);
+					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 
 			}
 			else if(i==1 || i==6)
 			{
+				// var mesh = new THREE.Mesh( pawns.pionek.geometry, pawns.pionek.material );
+				// board.BoardTable[i][j].figure = mesh;
 				board.BoardTable[i][j].figure = pawns.pionek.clone();
 				board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
 				board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
 				board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
-				scene.add(board.BoardTable[i][j].figure);
+				pawnsGroup.add(board.BoardTable[i][j].figure);
 			}
 		}
 	}
-
-	// let xForGrid = -15;
-	// let yForGrid = 2;
-	// let zForGrid = -10;
-	// for(let i=0;i<8;i++)
-	// {
-	// 	let object = pawns.pionek.clone();
-	// 		object.position.x = xForGrid;
-	// 		object.position.y = yForGrid;
-	// 		object.position.z = zForGrid;  
-	// 		xForGrid +=5;   
-	// 	scene.add(object);
-	// }
-
-	// xForGrid = -15;
-	// yForGrid = 2;
-	// zForGrid = 15;
-	// var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x404a43} );	
-	// for(let i=0;i<8;i++)
-	// {
-	// 		let object = pawns.pionek.clone();
-	// 		object.children[0].material = ModelMaterial;
-	// 		object.position.x = xForGrid;
-	// 		object.position.y = yForGrid;
-	// 		object.position.z = zForGrid;  
-	// 		xForGrid +=5;   
-	// 	scene.add(object);
-	// }
 }
 
 ,

@@ -101,9 +101,6 @@ class Board {
                     plane.rotation.x = radius90;
                     group.add( plane );
                     black = !black;
-                    //xForGrid +=5;
-                    //console.log(xForGrid,yForGrid,zForGrid);
-
                     }
                     else
                     {
@@ -114,8 +111,6 @@ class Board {
                     plane.rotation.x = radius90;
                     group.add( plane );
                     black = !black;
-                    //xForGrid +=5;
-                    //console.log(xForGrid,yForGrid,zForGrid);
                     }
                     if(i==0 || i==7)
                     {
@@ -168,7 +163,7 @@ class Board {
                     //tempstr += ("["+i+"]["+j+"]");
                     tempstr = (this.BoardTable[i][j]);
                 } 
-                console.log(tempstr); 
+                //console.log(tempstr); 
             } 
     }
     
