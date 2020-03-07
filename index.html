@@ -43,8 +43,17 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 			}
+			document.addEventListener('click', event => {
+			if(lastSelectRay != null)
+			{
+				raycastOn = !raycastOn;
+			}
+			});
 			/////////////////////////////////////////////////////////////////////////
 
+			var lastSelectRay = null;
+			var oldColorPawn;
+			var raycastOn = true;
 			//Grupa zawirajaca wszystkie obiekty zamiast pionkow
 			var group = new THREE.Group();
 			//Grupa zawirajaca wszystkie obiekty na scenie
@@ -103,7 +112,11 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			var animate = function () {
 				requestAnimationFrame( animate );
 				renderer.render(scene, camera);
-				raycast();
+				if(raycastOn)
+				{
+					raycast();
+				}
+
 		};
 
 			animate();
@@ -113,11 +126,28 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 				var intersects = raycaster.intersectObjects( scene.children , true );
 					if ( intersects.length > 0 ) {
 						//console.log(INTERSECTED);
-						if ( INTERSECTED != intersects[ 0 ].object.parent ) {
-							INTERSECTED = intersects[ 0 ].object;
-							INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-							INTERSECTED.material.emissive.setHex( 0xff0000 );
-							console.log(INTERSECTED);
+
+
+							if ( INTERSECTED != intersects[ 0 ].object.parent ) {
+								if(lastSelectRay == null)
+								{
+								INTERSECTED = intersects[ 0 ].object;
+								INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+								INTERSECTED.material.emissive.setHex( 0xff0000 );
+								lastSelectRay = intersects[ 0 ].object;
+								}
+								if(lastSelectRay != intersects[ 0 ].object)
+								{
+									lastSelectRay.material.emissive.setHex( 0x000000 );
+									INTERSECTED = intersects[ 0 ].object;
+									INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+									INTERSECTED.material.emissive.setHex( 0xff0000 );
+									lastSelectRay = intersects[ 0 ].object;
+								}
+							}
+						else
+						{
+							lastSelectRay = null;
 						}
 					} else {
 						if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( 0x000000);

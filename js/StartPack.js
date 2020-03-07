@@ -121,43 +121,68 @@ AddPawns : function(windowThis) {
 			{
 				if(j==0 || j==7)
 				{
-					board.BoardTable[i][j].figure = pawns.wieza.clone();
-					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+					let geometry = new THREE.BufferGeometry();
+					geometry = geometry.copy(pawns.wieza.children[0].geometry);
+					material = material.copy(pawns.wieza.children[0].material);
+					let mesh = new THREE.Mesh( geometry, material );
+					board.BoardTable[i][j].figure = mesh;
+					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
 					//console.log(board.BoardTable[i][j]);
 					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==1 || j==6)
 				{
-					board.BoardTable[i][j].figure = pawns.kon.clone();
-					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+					let geometry = new THREE.BufferGeometry();
+					geometry = geometry.copy(pawns.kon.children[0].geometry);
+					material = material.copy(pawns.kon.children[0].material);
+					let mesh = new THREE.Mesh( geometry, material );
+					board.BoardTable[i][j].figure = mesh;
+					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==2 || j==5)
 				{
-					board.BoardTable[i][j].figure = pawns.goniec.clone();
-					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+					let geometry = new THREE.BufferGeometry();
+					geometry = geometry.copy(pawns.goniec.children[0].geometry);
+					material = material.copy(pawns.goniec.children[0].material);
+					let mesh = new THREE.Mesh( geometry, material );
+					board.BoardTable[i][j].figure = mesh;
+					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==3)
 				{
-					board.BoardTable[i][j].figure = pawns.krol.clone();
-					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+					let geometry = new THREE.BufferGeometry();
+					geometry = geometry.copy(pawns.krol.children[0].geometry);
+					material = material.copy(pawns.krol.children[0].material);
+					let mesh = new THREE.Mesh( geometry, material );
+					board.BoardTable[i][j].figure = mesh;
+					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 				if(j==4)
 				{
-					board.BoardTable[i][j].figure = pawns.krolowa.clone();
-					board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+					let geometry = new THREE.BufferGeometry();
+					geometry = geometry.copy(pawns.krolowa.children[0].geometry);
+					material = material.copy(pawns.krolowa.children[0].material);
+					let mesh = new THREE.Mesh( geometry, material );
+					board.BoardTable[i][j].figure = mesh;
+					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure);
 				}
 
@@ -166,10 +191,15 @@ AddPawns : function(windowThis) {
 			{
 				// var mesh = new THREE.Mesh( pawns.pionek.geometry, pawns.pionek.material );
 				// board.BoardTable[i][j].figure = mesh;
-				board.BoardTable[i][j].figure = pawns.pionek.clone();
-				board.BoardTable[i][j].figure.children[0].position.x = board.BoardTable[i][j].position.x;
-				board.BoardTable[i][j].figure.children[0].position.y = board.BoardTable[i][j].position.y+2;
-				board.BoardTable[i][j].figure.children[0].position.z = board.BoardTable[i][j].position.z;
+				let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+				let geometry = new THREE.BufferGeometry();
+				geometry = geometry.copy(pawns.pionek.children[0].geometry);
+				material = material.copy(pawns.pionek.children[0].material);
+				let mesh = new THREE.Mesh( geometry, material );
+				board.BoardTable[i][j].figure = mesh;
+				board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
+				board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
+				board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
 				pawnsGroup.add(board.BoardTable[i][j].figure);
 			}
 		}
