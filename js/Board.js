@@ -7,6 +7,741 @@ class Plane
     this.figure = figure_;
     }
 }
+class pawn
+{
+    constructor(object_,color_) {
+        this.object = object_;
+        this.color = color_;
+        }
+    showMove(i,j)
+    {
+        console.log("figure pos: "+ i + " y:" + j);
+        if(board.BoardTable[i][j].figure.color == "b")
+        {
+            if((i <= 6) && (j <= 6))
+            {
+                if((board.BoardTable[i+1][j+1].figure != null) && (board.BoardTable[i+1][j+1].figure.color == "w"))
+                {
+                    board.BoardTable[i+1][j+1].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i+1][j+1]);
+                }
+            }
+            if((i <= 6) && (j >= 1))
+            {
+                if((board.BoardTable[i+1][j-1].figure != null) && (board.BoardTable[i+1][j-1].figure.color == "w"))
+                {
+                    board.BoardTable[i+1][j-1].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i+1][j-1]);
+                }
+            }
+            if((i <= 6))
+            {
+                if(board.BoardTable[i+1][j].figure == null)
+                {
+                    board.BoardTable[i+1][j].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i+1][j]);
+                }
+            }
+        }
+        else
+        {
+            if((i >= 1) && (j <= 6))
+            {
+                if((board.BoardTable[i-1][j+1].figure != null) && (board.BoardTable[i-1][j+1].figure.color == "b"))
+                {
+                    board.BoardTable[i-1][j+1].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i-1][j+1]);
+                }
+            }
+            if((i >= 1) && (j >= 1))
+            {
+                if((board.BoardTable[i-1][j-1].figure != null) && (board.BoardTable[i-1][j-1].figure.color == "b"))
+                {
+                     board.BoardTable[i-1][j-1].object.material.emissive.setHex( 0xff0000 );
+                     activePlans.push(board.BoardTable[i-1][j-1]);
+                }
+            }
+            if((i >= 1))
+            {
+                if(board.BoardTable[i-1][j].figure == null)
+                {
+                    board.BoardTable[i-1][j].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i-1][j]);
+                }
+            }
+        }
+    }
+}
+class king
+{
+    constructor(object_,color_) {
+        this.object = object_;
+        this.color = color_;
+        }
+        showMove(i,j)
+        {
+            console.log("figure pos: "+ i + " y:" + j);
+            if(board.BoardTable[i][j].figure.color == "b")
+            {
+                if(i <= 6)
+                {
+                    if((board.BoardTable[i+1][j].figure == null) || ((board.BoardTable[i+1][j].figure != null) && (board.BoardTable[i+1][j].figure.color == "w")))
+                    {
+                        board.BoardTable[i+1][j].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j]);
+                    }
+                }
+                if(i >= 1)
+                {
+                    if((board.BoardTable[i-1][j].figure == null) || ((board.BoardTable[i-1][j].figure != null) && (board.BoardTable[i-1][j].figure.color == "w")))
+                    {
+                        board.BoardTable[i-1][j].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j]);
+                    }
+                }
+                if(j <= 6)
+                {
+                    if((board.BoardTable[i][j+1].figure == null) || ((board.BoardTable[i][j+1].figure != null) && (board.BoardTable[i][j+1].figure.color == "w")))
+                    {
+                        board.BoardTable[i][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i][j+1]);
+                    }
+                }
+                if(j >= 1)
+                {
+                    if((board.BoardTable[i][j-1].figure == null) || ((board.BoardTable[i][j-1].figure != null) && (board.BoardTable[i][j-1].figure.color == "w")))
+                    {
+                        board.BoardTable[i][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i][j-1]);
+                    }
+                }
+                if((i >= 1) && (j <= 6))
+                {
+                    if((board.BoardTable[i-1][j+1].figure == null) || ((board.BoardTable[i-1][j+1].figure != null) && (board.BoardTable[i-1][j+1].figure.color == "w")))
+                    {
+                        board.BoardTable[i-1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j+1]);
+                    }
+                }
+                if((i <= 6) && (j >= 1))
+                {
+                    if((board.BoardTable[i+1][j-1].figure == null) || ((board.BoardTable[i+1][j-1].figure != null) && (board.BoardTable[i+1][j-1].figure.color == "w")))
+                    {
+                        board.BoardTable[i+1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j-1]);
+                    }
+                }
+                if((i <= 6) && (j <= 6))
+                {
+                    if((board.BoardTable[i+1][j+1].figure == null) || ((board.BoardTable[i+1][j+1].figure != null) && (board.BoardTable[i+1][j+1].figure.color == "w")))
+                    {
+                        board.BoardTable[i+1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j+1]);
+                    }
+                }
+                if((i >= 1) && (j >= 1))
+                {
+                    if((board.BoardTable[i-1][j-1].figure == null) || ((board.BoardTable[i-1][j-1].figure != null) && (board.BoardTable[i-1][j-1].figure.color == "w")))
+                    {
+                        board.BoardTable[i-1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j-1]);
+                    }
+                }
+            }
+            else
+            {
+                if(i <= 6)
+                {
+                    if((board.BoardTable[i+1][j].figure == null) || ((board.BoardTable[i+1][j].figure != null) && (board.BoardTable[i+1][j].figure.color == "b")))
+                    {
+                        board.BoardTable[i+1][j].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j]);
+                    }
+                }
+                if(i >= 1)
+                {
+                    if((board.BoardTable[i-1][j].figure == null) || ((board.BoardTable[i-1][j].figure != null) && (board.BoardTable[i-1][j].figure.color == "b")))
+                    {
+                        board.BoardTable[i-1][j].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j]);
+                    }
+                }
+                if(j <= 6)
+                {
+                    if((board.BoardTable[i][j+1].figure == null) || ((board.BoardTable[i][j+1].figure != null) && (board.BoardTable[i][j+1].figure.color == "b")))
+                    {
+                        board.BoardTable[i][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i][j+1]);
+                    }
+                }
+                if(j >= 1)
+                {
+                    if((board.BoardTable[i][j-1].figure == null) || ((board.BoardTable[i][j-1].figure != null) && (board.BoardTable[i][j-1].figure.color == "b")))
+                    {
+                        board.BoardTable[i][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i][j-1]);
+                    }
+                }
+                if((i >= 1) && (j <= 6))
+                {
+                    if((board.BoardTable[i-1][j+1].figure == null) || ((board.BoardTable[i-1][j+1].figure != null) && (board.BoardTable[i-1][j+1].figure.color == "b")))
+                    {
+                        board.BoardTable[i-1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j+1]);
+                    }
+                }
+                if((i <= 6) && (j >= 1))
+                {
+                    if((board.BoardTable[i+1][j-1].figure == null) || ((board.BoardTable[i+1][j-1].figure != null) && (board.BoardTable[i+1][j-1].figure.color == "b")))
+                    {
+                        board.BoardTable[i+1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j-1]);
+                    }
+                }
+                if((i <= 6) && (j <= 6))
+                {
+                    if((board.BoardTable[i+1][j+1].figure == null) || ((board.BoardTable[i+1][j+1].figure != null) && (board.BoardTable[i+1][j+1].figure.color == "b")))
+                    {
+                        board.BoardTable[i+1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j+1]);
+                    }
+                }
+                if((i >= 1) && (j >= 1))
+                {
+                    if((board.BoardTable[i-1][j-1].figure == null) || ((board.BoardTable[i-1][j-1].figure != null) && (board.BoardTable[i-1][j-1].figure.color == "b")))
+                    {
+                        board.BoardTable[i-1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j-1]);
+                    }
+                }
+            }
+        }
+}
+class queen
+{
+    constructor(object_,color_) {
+        this.object = object_;
+        this.color = color_;
+        }
+        showMove(i,j)
+        {
+            let s = j -1;
+            console.log("figure pos: "+ i + " y:" + j);
+
+            //left up
+            for(let t = i-1;t<8;t--)
+            {
+                if(t >= 0 && s >= 0)
+                {
+                    if(board.BoardTable[t][s].figure == null)
+                    {
+                       //console.log("left up NULLtx!! -x: "+ t + " y:" + s);
+                        board.BoardTable[t][s].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][s]);
+                    }
+                    else
+                    {
+                        if(board.BoardTable[t][s].figure.color == "b")
+                        {
+                            //console.log("cage");
+                            board.BoardTable[t][s].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][s]);
+                        }
+                        //console.log("left up NONULLtx!! -x: "+ t + " y:" + s);
+                        break;
+                    }
+                    s-=1;
+                }
+                else
+                {
+                    //console.log("left up NONULLtx!! -x: "+ t + " y:" + s);
+                    break;
+                }
+            }
+            //right up
+            let w = j;
+            for(let t = i-1;t<8;t--)
+            {
+                w+=1;
+                if(t >= 0 && w <= 7)
+                {
+                    if(board.BoardTable[t][w].figure == null)
+                    {
+                       // console.log("right up: "+ t + " y:" + w);
+                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][w]);
+                    }
+                    else
+                    {
+                        if(board.BoardTable[t][w].figure.color == "b")
+                        {
+                            console.log("right up");
+                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][w]);
+                        }
+                        console.log("right up NONULLtx!! +x: "+ t + " y:" + w);
+                        break;
+                    }
+                }
+                else
+                {
+                    //console.log("right up NOONULLtx!! +x: "+ t + " y:" + w);
+                    break;
+                }
+            }
+            //right down
+            w = j;
+            for(let t = i+1;t<8;t++)
+            {
+                w+=1;
+                if(t <= 7 && w <= 7)
+                {
+                    if(board.BoardTable[t][w].figure == null)
+                    {
+                      // console.log("right down: "+ t + " y:" + w);
+                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][w]);
+                    }
+                    else
+                    {
+                        if(board.BoardTable[t][w].figure.color == "b")
+                        {
+                            console.log("cage");
+                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][w]);
+                        }
+                        //console.log("right down NONULLtx!! +y: "+ t + " y:" + w);
+                        break;
+                    }
+                }
+                else
+                {
+                    //console.log("right down NOONULLtx!! +y: "+ t + " y:" + w);
+                    break;
+                }
+            }
+            //left down
+            w = j;
+            for(let t = i+1;t<8;t++)
+            {
+                w-=1;
+                if(t <= 7 && w >= 0)
+                {
+                    if(board.BoardTable[t][w].figure == null)
+                    {
+                        //console.log("left down: "+ t + " y:" + w);
+                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][w]);
+                    }
+                    else
+                    {
+                        if(board.BoardTable[t][w].figure.color == "b")
+                        {
+                            console.log("cage");
+                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][w]);
+                        }
+                        //console.log("left down NONULLtx!! +y: "+ t + " y:" + w);
+                        break;
+                    }
+                }
+                else
+                {
+                    //console.log("left down NOONULLtx!! +y: "+ t + " y:" + w);
+                    break;
+                }
+            }
+        
+             //Down
+             for(let t =i+1;t<8;t++)
+             {
+                 if(board.BoardTable[t][j].figure == null)
+                 {
+                    // console.log("NULLtx!! +x: "+ t + " y:" + j);
+                     board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                     activePlans.push(board.BoardTable[t][j]);
+                 }
+                 else
+                 {
+                    if(board.BoardTable[t][j].figure.color == "b")
+                    {
+                        console.log("down");
+                        board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][j]);
+                    }
+                     //console.log("NONULLtx!! +x: "+ t + " y:" + j);
+                     break;
+                 }
+             }
+                //up
+                 for(let t =i-1;t<8;t--)
+                 {
+                     if(t >= 0)
+                     {
+                         if(board.BoardTable[t][j].figure == null)
+                         {
+                             //console.log("NULLt-x!! x: "+ t + " y:" + j);
+                             board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                             activePlans.push(board.BoardTable[t][j]);
+                         }
+                         else
+                         {
+                            if(board.BoardTable[t][j].figure.color == "b")
+                            {
+                                console.log("up");
+                                board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                                activePlans.push(board.BoardTable[t][j]);
+                            }
+                             //console.log("NONULLt-x!! x: "+ t + " y:" + j);
+                             break;
+                         }
+                     }
+                     else
+                     {
+                         //console.log("NOONULLtx!! -x: "+ t + " y:" + j);
+                         break;
+                     }
+                 }
+            
+                 //right
+             for(let t =j+1;t<8;t++)
+             {
+                 if(board.BoardTable[i][t].figure == null)
+                 {
+                     //console.log("NULLty!! x: "+ i + " y:" + t);
+                     board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                     activePlans.push(board.BoardTable[i][t]);
+                 }
+                 else
+                 {
+                    if(board.BoardTable[i][t].figure.color == "b")
+                    {
+                        console.log("right");
+                        board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i][t]);
+                    }
+                     //console.log("NOTNULLty!! x: "+ i + " y:" + t);
+                     break;
+                 }
+             }
+             //left
+             for(let t =j-1;t<8;t--)
+             {
+                 if(t >= 0)
+                 {
+                     if(board.BoardTable[i][t].figure == null)
+                     {
+                         //console.log("NULLt-y!! x: "+ i + " y:" + t);
+                         board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                         activePlans.push(board.BoardTable[i][t]);
+                     }
+                     else
+                     {
+                        if(board.BoardTable[i][t].figure.color == "b")
+                        {
+                            console.log("left");
+                            board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[i][t]);
+                        }
+                         //console.log("NOTNULLt-y!! x: "+ i + " y:" + t);
+                         break;
+                     }
+                 }
+                 else
+                 {
+                    // console.log("NOOTNULLt-y!! x: "+ i + " y:" + t);
+                     break;
+                 }
+             }
+         
+        }
+}
+class horse
+{
+    constructor(object_,color_) {
+        this.object = object_;
+        this.color = color_;
+        }
+        showMove(i,j)
+        {
+            console.log("figure pos: "+ i + " y:" + j);
+            if(i >= 2 && j >= 1)
+            {
+                // UP LEFT
+                if(board.BoardTable[i-2][j-1].figure == null)
+                {
+                    board.BoardTable[i-2][j-1].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i-2][j-1]);
+                }
+            }
+            if(i >= 2 && j <= 6)
+            {
+                // UP RIGHT
+                if(board.BoardTable[i-2][j+1].figure == null)
+                {
+                    board.BoardTable[i-2][j+1].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i-2][j+1]);
+                }
+            }
+            if(i >= 1 && j <= 5)
+            {
+                // UP RIGHT RIGHT
+                if(board.BoardTable[i-1][j+2].figure == null)
+                {
+                    board.BoardTable[i-1][j+2].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i-1][j+2]);
+                }
+                else
+                {
+                    console.log("NONULLtx!! +x: "+ i + " y:" + j);
+                }    
+            }
+            if(i >= 1 && j >= 2)
+            {
+                //UP LEFT LEFT
+                if(board.BoardTable[i-1][j-2].figure == null)
+                {
+                    board.BoardTable[i-1][j-2].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i-1][j-2]);
+                }    
+            }       
+            if(i <= 6 && j >= 2)
+            {
+                //DOWN LEFT LEFT
+                if(board.BoardTable[i+1][j-2].figure == null)
+                {
+                    board.BoardTable[i+1][j-2].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i+1][j-2]);
+                }    
+            }     
+            if(i <= 5 && j >= 1)
+            {
+                //DOWN LEFT
+                if(board.BoardTable[i+2][j-1].figure == null)
+                {
+                    board.BoardTable[i+2][j-1].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i+2][j-1]);
+                }    
+            }                
+            if(i <= 6 && j <= 5)
+            {
+                //DOWN RIGHT
+                if(board.BoardTable[i+1][j+2].figure == null)
+                {
+                    board.BoardTable[i+1][j+2].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i+1][j+2]);
+                }    
+            }    
+            if(i <= 5 && j <= 6)
+            {
+                //DOWN RIGHT RIGHT
+                if(board.BoardTable[i+2][j+1].figure == null)
+                {
+                    board.BoardTable[i+2][j+1].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i+2][j+1]);
+                }    
+            }    
+
+        }
+}
+class tower
+{
+    constructor(object_,color_) {
+        this.object = object_;
+        this.color = color_;
+        }
+        showMove(i,j)
+        {
+            console.log("figure pos: "+ i + " y:" + j);
+            //Paint planes
+            for(let t =i+1;t<8;t++)
+            {
+                if(board.BoardTable[t][j].figure == null)
+                {
+                   // console.log("NULLtx!! +x: "+ t + " y:" + j);
+                    board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[t][j]);
+                }
+                else
+                {
+                    //console.log("NONULLtx!! +x: "+ t + " y:" + j);
+                    break;
+                }
+            }
+                for(let t =i-1;t<8;t--)
+                {
+                    if(t >= 0)
+                    {
+                        if(board.BoardTable[t][j].figure == null)
+                        {
+                            //console.log("NULLt-x!! x: "+ t + " y:" + j);
+                            board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][j]);
+                        }
+                        else
+                        {
+                            //console.log("NONULLt-x!! x: "+ t + " y:" + j);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        //console.log("NOONULLtx!! -x: "+ t + " y:" + j);
+                        break;
+                    }
+                }
+           
+
+            for(let t =j+1;t<8;t++)
+            {
+                if(board.BoardTable[i][t].figure == null)
+                {
+                    //console.log("NULLty!! x: "+ i + " y:" + t);
+                    board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                    activePlans.push(board.BoardTable[i][t]);
+                }
+                else
+                {
+                    //console.log("NOTNULLty!! x: "+ i + " y:" + t);
+                    break;
+                }
+            }
+            for(let t =j-1;t<8;t--)
+            {
+                if(t >= 0)
+                {
+                    if(board.BoardTable[i][t].figure == null)
+                    {
+                        //console.log("NULLt-y!! x: "+ i + " y:" + t);
+                        board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i][t]);
+                    }
+                    else
+                    {
+                        //console.log("NOTNULLt-y!! x: "+ i + " y:" + t);
+                        break;
+                    }
+                }
+                else
+                {
+                   // console.log("NOOTNULLt-y!! x: "+ i + " y:" + t);
+                    break;
+                }
+            }
+        }
+}
+class runner
+{
+    constructor(object_,color_) {
+        this.object = object_;
+        this.color = color_;
+        }
+        showMove(i,j)
+        {
+            let s = j -1;
+            console.log("figure pos: "+ i + " y:" + j);
+
+            //left up
+            for(let t = i-1;t<8;t--)
+            {
+                if(t >= 0 && s >= 0)
+                {
+                    if(board.BoardTable[t][s].figure == null)
+                    {
+                       //console.log("left up NULLtx!! -x: "+ t + " y:" + s);
+                        board.BoardTable[t][s].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][s]);
+                    }
+                    else
+                    {
+                        //console.log("left up NONULLtx!! -x: "+ t + " y:" + s);
+                        break;
+                    }
+                    s-=1;
+                }
+                else
+                {
+                    //console.log("left up NONULLtx!! -x: "+ t + " y:" + s);
+                    break;
+                }
+            }
+            //right up
+            let w = j;
+            for(let t = i-1;t<8;t--)
+            {
+                w+=1;
+                if(t >= 0 && w <= 7)
+                {
+                    if(board.BoardTable[t][w].figure == null)
+                    {
+                       // console.log("right up: "+ t + " y:" + w);
+                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][w]);
+                    }
+                    else
+                    {
+                        //console.log("right up NONULLtx!! +x: "+ t + " y:" + w);
+                        break;
+                    }
+                }
+                else
+                {
+                    //console.log("right up NOONULLtx!! +x: "+ t + " y:" + w);
+                    break;
+                }
+            }
+            //right down
+            w = j;
+            for(let t = i+1;t<8;t++)
+            {
+                w+=1;
+                if(t <= 7 && w <= 7)
+                {
+                    if(board.BoardTable[t][w].figure == null)
+                    {
+                      // console.log("right down: "+ t + " y:" + w);
+                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][w]);
+                    }
+                    else
+                    {
+                        //console.log("right down NONULLtx!! +y: "+ t + " y:" + w);
+                        break;
+                    }
+                }
+                else
+                {
+                    //console.log("right down NOONULLtx!! +y: "+ t + " y:" + w);
+                    break;
+                }
+            }
+            //left down
+            w = j;
+            for(let t = i+1;t<8;t++)
+            {
+                w-=1;
+                if(t <= 7 && w >= 0)
+                {
+                    if(board.BoardTable[t][w].figure == null)
+                    {
+                        //console.log("left down: "+ t + " y:" + w);
+                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[t][w]);
+                    }
+                    else
+                    {
+                        //console.log("left down NONULLtx!! +y: "+ t + " y:" + w);
+                        break;
+                    }
+                }
+                else
+                {
+                    //console.log("left down NOONULLtx!! +y: "+ t + " y:" + w);
+                    break;
+                }
+            }
+        }
+}
 class Board {
     constructor() {
         // Create one dimensional array 

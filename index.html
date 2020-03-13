@@ -33,24 +33,42 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 		<script src="js/MTLLoader.js">//wczytanie dodatkowego pliku materialow do obj</script>
 		<script src="js/OrbitControls.js">//biblioteka do kontroli widoku</script>
 		<script>
+
 			//FOR RAYCST!!!//////////////////////////////////////////////////////////
 			var raycaster;
 			raycaster = new THREE.Raycaster();
 			var mouse = new THREE.Vector2(), INTERSECTED;
+			var oldPlanePos;
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			function onDocumentMouseMove( event ) {
 				event.preventDefault();
 				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 			}
+
 			document.addEventListener('click', event => {
 			if(lastSelectRay != null)
 			{
-				raycastOn = !raycastOn;
+				if(raycastOn == true)
+				{
+					findPawn();
+					raycastOn = !raycastOn;
+				}
+				else
+				{
+					oldPlanePos = lastSelectRay;
+					for(let i =0;i<activePlans.length;i++)
+					{
+						activePlans[i].object.material.emissive.setHex( 0x000000 );
+					}
+					raycastOn = !raycastOn;
+				}
 			}
 			});
 			/////////////////////////////////////////////////////////////////////////
-
+			var deletePawnBlack = [];
+			var deletePawnWhite = [];
+			var activePlans = [];
 			var lastSelectRay = null;
 			var oldColorPawn;
 			var raycastOn = true;
@@ -112,7 +130,7 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			var animate = function () {
 				requestAnimationFrame( animate );
 				renderer.render(scene, camera);
-				if(raycastOn)
+				if(raycastOn == true)
 				{
 					raycast();
 				}
@@ -125,24 +143,41 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 				raycaster.setFromCamera( mouse, camera );
 				var intersects = raycaster.intersectObjects( scene.children , true );
 					if ( intersects.length > 0 ) {
-						//console.log(INTERSECTED);
 
 
-							if ( INTERSECTED != intersects[ 0 ].object.parent ) {
+								if ( INTERSECTED != intersects[ 0 ].object.parent ) {
 								if(lastSelectRay == null)
 								{
 								INTERSECTED = intersects[ 0 ].object;
 								INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
 								INTERSECTED.material.emissive.setHex( 0xff0000 );
 								lastSelectRay = intersects[ 0 ].object;
+								oldPlanePos = intersects[ 0 ].object;
 								}
 								if(lastSelectRay != intersects[ 0 ].object)
 								{
-									lastSelectRay.material.emissive.setHex( 0x000000 );
-									INTERSECTED = intersects[ 0 ].object;
-									INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-									INTERSECTED.material.emissive.setHex( 0xff0000 );
-									lastSelectRay = intersects[ 0 ].object;
+									// 	console.log("Change");
+									// for(let i =0;i<8;i++)
+									// {
+									// 	for(let j =0;j<8;j++)
+									// 	{
+									// 		console.log(board.BoardTable[i][j]);
+									// 	}
+									// }
+										lastSelectRay.material.emissive.setHex( 0x000000 );
+										INTERSECTED = intersects[ 0 ].object;
+										INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+										INTERSECTED.material.emissive.setHex( 0xff0000 );
+										lastSelectRay = intersects[ 0 ].object;
+
+										for(let i =0;i<activePlans.length;i++)
+										{
+											if(activePlans[i].object == lastSelectRay)
+											{
+												changePawnPosition();
+											}
+										}
+										activePlans = [];
 								}
 							}
 						else
@@ -150,10 +185,106 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 							lastSelectRay = null;
 						}
 					} else {
+						lastSelectRay = null;
 						if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( 0x000000);
 						INTERSECTED = null;
 					}
-			}		
+			}	
+			function findPawn()
+			{
+				for(let i =0;i<8;i++)
+				{
+					for(let j =0;j<8;j++)
+					{
+						if(board.BoardTable[i][j].figure != null)
+						{				
+							if(board.BoardTable[i][j].figure.object == lastSelectRay)
+							{
+								board.BoardTable[i][j].figure.showMove(i,j);
+								i = 7;
+								j = 7;
+							}
+						}
+					}
+				}
+			}
+			function changePawnPosition()
+			{
+				let find_pawn = false;
+				let find_plane = false;
+				var pawnIndex = new THREE.Vector2( 0, 0 );
+				var planeIndex = new THREE.Vector2( 0, 0 );
+				for(let i =0;i<8;i++)
+				{
+					for(let j =0;j<8;j++)
+					{
+						if(board.BoardTable[i][j].figure != null)
+						{
+							if(board.BoardTable[i][j].figure.object == oldPlanePos)
+							{
+								pawnIndex.x = i;
+								pawnIndex.y = j;
+								find_pawn = true;
+							}
+						}	
+						if(board.BoardTable[i][j].object == lastSelectRay)
+						{
+							planeIndex.x = i;
+							planeIndex.y = j;
+							find_plane = true;
+						}
+						if((find_pawn && find_plane) == true)
+						{
+							//console.log(board.BoardTable[pawnIndex.x][pawnIndex.y]);
+							//console.log(board.BoardTable[planeIndex.x][planeIndex.y]);
+
+							if(board.BoardTable[planeIndex.x][planeIndex.y].figure != null)
+							{
+								if(board.BoardTable[planeIndex.x][planeIndex.y].figure.color == "b")
+								{
+									deletePawnBlack.push(board.BoardTable[planeIndex.x][planeIndex.y].figure.object);
+									board.BoardTable[planeIndex.x][planeIndex.y].figure = null;
+									sortFigureBlack();
+								}
+								else if(board.BoardTable[planeIndex.x][planeIndex.y].figure.color == "w")
+								{
+									deletePawnWhite.push(board.BoardTable[planeIndex.x][planeIndex.y].figure.object);
+									board.BoardTable[planeIndex.x][planeIndex.y].figure = null;
+									sortFigureWhite();
+								}
+							}
+							
+							let temp_state = board.BoardTable[pawnIndex.x][pawnIndex.y].stateNumber;
+							board.BoardTable[pawnIndex.x][pawnIndex.y].stateNumber = board.BoardTable[planeIndex.x][planeIndex.y].stateNumber;
+							board.BoardTable[planeIndex.x][planeIndex.y].stateNumber = temp_state;
+							board.BoardTable[planeIndex.x][planeIndex.y].figure = board.BoardTable[pawnIndex.x][pawnIndex.y].figure;
+							board.BoardTable[pawnIndex.x][pawnIndex.y].figure = null;
+
+							oldPlanePos.position.x = board.BoardTable[planeIndex.x][planeIndex.y].position.x;
+							oldPlanePos.position.y = board.BoardTable[planeIndex.x][planeIndex.y].position.y+2;
+							oldPlanePos.position.z = board.BoardTable[planeIndex.x][planeIndex.y].position.z;
+						i = 7;
+						j = 7;
+						}
+					}
+				}
+			}	
+			function sortFigureBlack()
+			{
+					for(let i=0;i<deletePawnBlack.length;i++)
+					{
+						deletePawnBlack[i].position.x = 25;
+					    deletePawnBlack[i].position.z = i*2.5;
+					}
+			}
+			function sortFigureWhite()
+			{
+				for(let i=0;i<deletePawnWhite.length;i++)
+					{
+						deletePawnWhite[i].position.x = -20;
+					    deletePawnWhite[i].position.z = i*2.5;
+					}
+			}
 		</script>
 	</body>
 </html>

@@ -102,7 +102,6 @@ let tabObj = ['pionek',
 		{
 			console.log(this);
 			StartPack.AddPawns(this);
-			//StartPack.AddHightFigure();
 		}
 		});
 		
@@ -119,6 +118,7 @@ AddPawns : function(windowThis) {
 		{
 			if(i==0 || i==7)
 			{
+				//Tower
 				if(j==0 || j==7)
 				{
 					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
@@ -126,13 +126,21 @@ AddPawns : function(windowThis) {
 					geometry = geometry.copy(pawns.wieza.children[0].geometry);
 					material = material.copy(pawns.wieza.children[0].material);
 					let mesh = new THREE.Mesh( geometry, material );
-					board.BoardTable[i][j].figure = mesh;
-					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
-					//console.log(board.BoardTable[i][j]);
-					pawnsGroup.add(board.BoardTable[i][j].figure);
+					if((i==0 || i==7) && (i==0))
+					{
+						mesh.material.color.set(0x4b4b4b);
+						board.BoardTable[i][j].figure = new tower(mesh,"b");
+					}
+					else
+					{
+						board.BoardTable[i][j].figure = new tower(mesh,"w");
+					}
+					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
+					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
+				//horse
 				if(j==1 || j==6)
 				{
 					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
@@ -140,12 +148,21 @@ AddPawns : function(windowThis) {
 					geometry = geometry.copy(pawns.kon.children[0].geometry);
 					material = material.copy(pawns.kon.children[0].material);
 					let mesh = new THREE.Mesh( geometry, material );
-					board.BoardTable[i][j].figure = mesh;
-					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
-					pawnsGroup.add(board.BoardTable[i][j].figure);
+					if(i==7)
+					{
+						board.BoardTable[i][j].figure = new horse(mesh,"w");
+					}
+					else if(i==0)
+					{
+						board.BoardTable[i][j].figure = new horse(mesh,"b");
+						mesh.material.color.set(0x4b4b4b);
+					}
+					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
+					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
+				//Runner
 				if(j==2 || j==5)
 				{
 					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
@@ -153,12 +170,21 @@ AddPawns : function(windowThis) {
 					geometry = geometry.copy(pawns.goniec.children[0].geometry);
 					material = material.copy(pawns.goniec.children[0].material);
 					let mesh = new THREE.Mesh( geometry, material );
-					board.BoardTable[i][j].figure = mesh;
-					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
-					pawnsGroup.add(board.BoardTable[i][j].figure);
+					if(i==7)
+					{
+					board.BoardTable[i][j].figure = new runner(mesh,"w");
+					}
+					else if(i==0)
+					{
+					board.BoardTable[i][j].figure = new runner(mesh,"b");
+					mesh.material.color.set(0x4b4b4b);
+					}
+					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
+					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
+				//King
 				if(j==3)
 				{
 					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
@@ -166,12 +192,21 @@ AddPawns : function(windowThis) {
 					geometry = geometry.copy(pawns.krol.children[0].geometry);
 					material = material.copy(pawns.krol.children[0].material);
 					let mesh = new THREE.Mesh( geometry, material );
-					board.BoardTable[i][j].figure = mesh;
-					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
-					pawnsGroup.add(board.BoardTable[i][j].figure);
+					if(j==3 && i == 7)
+					{
+					board.BoardTable[i][j].figure = new king(mesh,"w");
+					}
+					else if(j==3 && i == 0)
+					{
+					board.BoardTable[i][j].figure = new king(mesh,"b");
+					mesh.material.color.set(0x4b4b4b);
+					}
+					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
+					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
+				//Queen
 				if(j==4)
 				{
 					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
@@ -179,14 +214,23 @@ AddPawns : function(windowThis) {
 					geometry = geometry.copy(pawns.krolowa.children[0].geometry);
 					material = material.copy(pawns.krolowa.children[0].material);
 					let mesh = new THREE.Mesh( geometry, material );
-					board.BoardTable[i][j].figure = mesh;
-					board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
-					board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
-					pawnsGroup.add(board.BoardTable[i][j].figure);
+					if(j==4 && i == 7)
+					{
+					board.BoardTable[i][j].figure = new queen(mesh,"w");
+					}
+					else if(j==4 && i == 0)
+					{
+					board.BoardTable[i][j].figure = new queen(mesh,"b");
+					mesh.material.color.set(0x4b4b4b);
+					}
+					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
+					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
 
 			}
+			//Pawns
 			else if(i==1 || i==6)
 			{
 				// var mesh = new THREE.Mesh( pawns.pionek.geometry, pawns.pionek.material );
@@ -196,11 +240,19 @@ AddPawns : function(windowThis) {
 				geometry = geometry.copy(pawns.pionek.children[0].geometry);
 				material = material.copy(pawns.pionek.children[0].material);
 				let mesh = new THREE.Mesh( geometry, material );
-				board.BoardTable[i][j].figure = mesh;
-				board.BoardTable[i][j].figure.position.x = board.BoardTable[i][j].position.x;
-				board.BoardTable[i][j].figure.position.y = board.BoardTable[i][j].position.y+2;
-				board.BoardTable[i][j].figure.position.z = board.BoardTable[i][j].position.z;
-				pawnsGroup.add(board.BoardTable[i][j].figure);
+				if(i == 1)
+				{
+				board.BoardTable[i][j].figure = new pawn(mesh,"b");
+				mesh.material.color.set(0x4b4b4b);
+				}
+				else if(i == 6)
+				{
+				board.BoardTable[i][j].figure = new pawn(mesh,"w");
+				}
+				board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
+				board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+				board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
+				pawnsGroup.add(board.BoardTable[i][j].figure.object);
 			}
 		}
 	}
