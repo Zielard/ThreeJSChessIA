@@ -24,38 +24,71 @@ var StartPack = {
   ,
   AddObject : function(i) {
   
-// 	let tabPath = ['new_model/Stone_Chess_Pawn_Side_A_v2/',
+	let tabPath = [
+		'szachy.low.poly/obj/',
+		'szachy.low.poly/obj/',
+		'szachy.low.poly/obj/',
+		'szachy.low.poly/obj/',
+		'szachy.low.poly/obj/',
+		'szachy.low.poly/obj/'];
+	let tabObj = ['pionek',
+		'wieza',
+		'kon',
+		'goniec',
+		'krol',
+		'krolowa'];
+
+// 	let tabPath = [
+// 	'new_model/Stone_Chess_Pawn_Side_A_v2/',
 // 	'new_model/Stone_Chess_Rook_Side_A_v2/',
-// 	'new_model/Stone_Chess_King_Side_A_v2/',
+// 	'new_model/Stone_Chess_Knight_Side_A_v2/',
 // 	'new_model/Stone_Chess_Bishop_Side_A_v2/',
 // 	'new_model/Stone_Chess_King_Side_A_v2/',
 // 	'new_model/Stone_Chess_Queen_Side_A_v2/'];
-// let tabObj = ['12944_Stone_Chess_Pawn_Side_A_V2_L3',
+// let tabObj = [
+// 	'12944_Stone_Chess_Pawn_Side_A_V2_L3',
 // 	'12941_Stone_Chess_Rook_Side_A_V2_l1',
-// 	'12939_Stone_Chess_King_Side_A_V2_l1',
+// 	'12943_Stone_Chess_Knight_Side_A_v2_l1',
 // 	'12942_Stone_Chess_Bishop_V2_l1',
 // 	'12939_Stone_Chess_King_Side_A_V2_l1',
 // 	'12940_Stone_Chess_Queen_Side_A_V2_l1'];
-let tabPath = ['obj/',
-	'obj/',
-	'obj/',
-	'obj/',
-	'obj/',
-	'obj/'];
-let tabObj = ['pionek',
-	'wieza',
-	'kon',
-	'goniec',
-	'krol',
-	'krolowa'];
-	var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+// let tabPath = ['obj/',
+// 	'obj/',
+// 	'obj/',
+// 	'obj/',
+// 	'obj/',
+// 	'obj/'];
+// let tabObj = ['pionek',
+// 	'wieza',
+// 	'kon',
+// 	'goniec',
+// 	'krol',
+// 	'krolowa'];
 	var mtlLoader = new THREE.MTLLoader();
 	mtlLoader.setPath(tabPath[i]);
 	mtlLoader.load(tabObj[i] +'.mtl', function(materials) {
 	materials.flatShading = false;
-	materials.preload();
 	var objLoader = new THREE.OBJLoader();
 
+	materials.preload();
+	console.log(materials);
+	var mapHeight = new THREE.TextureLoader().load( "szachy.low.poly/textura/Normale.szachy.png" );
+	var mapEnv = new THREE.TextureLoader().load( "szachy.low.poly/textura/env.png" );
+
+	materials.materials.material_z_normalami.bumpMap = mapHeight;
+	//materials.materials.material_z_normalami.envMap = mapEnv;	
+	//materials.materials.material_z_normalami.specular = 0x222222;
+	//materials.materials.material_z_normalami.color = 0xffffff;
+	//materials.materials.material_z_normalami.emissive = 0xffffff;
+	//materials.materials.material_z_normalami.shininess = 25;
+	// materials.color = 0x552811;
+	// materials.specular = 0x222222;
+	// materials.shininess = 25;
+	// materials.bumpMap = mapHeight;
+	// materials.bumpScale = 12;
+
+	//materials.bumpMap = mapHeight;
+	//materials.bumpScale = 12;
 	objLoader.setMaterials(materials);
 	objLoader.setPath(tabPath[i]);
 	objLoader.load(tabObj[i] +'.obj', 
@@ -64,7 +97,8 @@ let tabObj = ['pionek',
 	object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				//child.material = ModelMaterial;
-				child.geometry.scale(2,2,2);
+				child.geometry.scale(1,1,1);
+				
 			}
 		} );
 
@@ -136,7 +170,7 @@ AddPawns : function(windowThis) {
 						board.BoardTable[i][j].figure = new tower(mesh,"w");
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
 					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
@@ -158,7 +192,7 @@ AddPawns : function(windowThis) {
 						mesh.material.color.set(0x4b4b4b);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
 					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
@@ -180,7 +214,7 @@ AddPawns : function(windowThis) {
 					mesh.material.color.set(0x4b4b4b);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
 					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
@@ -202,7 +236,7 @@ AddPawns : function(windowThis) {
 					mesh.material.color.set(0x4b4b4b);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
 					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
@@ -224,7 +258,7 @@ AddPawns : function(windowThis) {
 					mesh.material.color.set(0x4b4b4b);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
-					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
 					board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
 					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
@@ -250,7 +284,7 @@ AddPawns : function(windowThis) {
 				board.BoardTable[i][j].figure = new pawn(mesh,"w");
 				}
 				board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
-				board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y+2;
+				board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
 				board.BoardTable[i][j].figure.object.position.z = board.BoardTable[i][j].position.z;
 				pawnsGroup.add(board.BoardTable[i][j].figure.object);
 			}

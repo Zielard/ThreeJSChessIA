@@ -15,6 +15,24 @@ class pawn
         }
     showMove(i,j)
     {
+        console.log(group);
+        // for(let t = 0;t<8;t++)
+        // {
+        //     let tempppp;
+        //     for(let w = 0;w<8;w++)
+        //     {
+        //         tempppp += board.BoardTable[t][w].stateNumber+",";
+        //     }
+        //     console.log(tempppp);
+        // }
+        // for(let t = 0;t<8;t++)
+        // {
+        //     let tempppp;
+        //     for(let w = 0;w<8;w++)
+        //     {
+        //         console.log(board.BoardTable[t][w])
+        //     }
+        // }
         console.log("figure pos: "+ i + " y:" + j);
         if(board.BoardTable[i][j].figure.color == "b")
         {
@@ -226,8 +244,16 @@ class queen
         showMove(i,j)
         {
             let s = j -1;
+            let tempColor = "b";
             console.log("figure pos: "+ i + " y:" + j);
-
+            if(board.BoardTable[i][j].figure.color == "w")
+            {
+                tempColor = "b";
+            }
+            else if(board.BoardTable[i][j].figure.color == "b")
+            {
+                tempColor = "w";
+            }
             //left up
             for(let t = i-1;t<8;t--)
             {
@@ -241,7 +267,7 @@ class queen
                     }
                     else
                     {
-                        if(board.BoardTable[t][s].figure.color == "b")
+                        if(board.BoardTable[t][s].figure.color == tempColor)
                         {
                             //console.log("cage");
                             board.BoardTable[t][s].object.material.emissive.setHex( 0xff0000 );
@@ -273,7 +299,7 @@ class queen
                     }
                     else
                     {
-                        if(board.BoardTable[t][w].figure.color == "b")
+                        if(board.BoardTable[t][w].figure.color == tempColor)
                         {
                             console.log("right up");
                             board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
@@ -304,7 +330,7 @@ class queen
                     }
                     else
                     {
-                        if(board.BoardTable[t][w].figure.color == "b")
+                        if(board.BoardTable[t][w].figure.color == tempColor)
                         {
                             console.log("cage");
                             board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
@@ -335,7 +361,7 @@ class queen
                     }
                     else
                     {
-                        if(board.BoardTable[t][w].figure.color == "b")
+                        if(board.BoardTable[t][w].figure.color == tempColor)
                         {
                             console.log("cage");
                             board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
@@ -363,7 +389,7 @@ class queen
                  }
                  else
                  {
-                    if(board.BoardTable[t][j].figure.color == "b")
+                    if(board.BoardTable[t][j].figure.color == tempColor)
                     {
                         console.log("down");
                         board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
@@ -386,7 +412,7 @@ class queen
                          }
                          else
                          {
-                            if(board.BoardTable[t][j].figure.color == "b")
+                            if(board.BoardTable[t][j].figure.color == tempColor)
                             {
                                 console.log("up");
                                 board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
@@ -414,7 +440,7 @@ class queen
                  }
                  else
                  {
-                    if(board.BoardTable[i][t].figure.color == "b")
+                    if(board.BoardTable[i][t].figure.color == tempColor)
                     {
                         console.log("right");
                         board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
@@ -437,7 +463,7 @@ class queen
                      }
                      else
                      {
-                        if(board.BoardTable[i][t].figure.color == "b")
+                        if(board.BoardTable[i][t].figure.color == tempColor)
                         {
                             console.log("left");
                             board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
@@ -453,8 +479,8 @@ class queen
                      break;
                  }
              }
-         
-        }
+        
+    }
 }
 class horse
 {
@@ -464,6 +490,18 @@ class horse
         }
         showMove(i,j)
         {
+            
+            let tempColor = "b";
+            console.log("figure pos: "+ i + " y:" + j);
+            if(board.BoardTable[i][j].figure.color == "w")
+            {
+                tempColor = "b";
+            }
+            else if(board.BoardTable[i][j].figure.color == "b")
+            {
+                tempColor = "w";
+            }
+            
             console.log("figure pos: "+ i + " y:" + j);
             if(i >= 2 && j >= 1)
             {
@@ -473,6 +511,14 @@ class horse
                     board.BoardTable[i-2][j-1].object.material.emissive.setHex( 0xff0000 );
                     activePlans.push(board.BoardTable[i-2][j-1]);
                 }
+                else
+                {
+                    if(board.BoardTable[i-2][j-1].figure.color == tempColor)
+                    {
+                        board.BoardTable[i-2][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-2][j-1]);
+                    }
+                }
             }
             if(i >= 2 && j <= 6)
             {
@@ -481,6 +527,14 @@ class horse
                 {
                     board.BoardTable[i-2][j+1].object.material.emissive.setHex( 0xff0000 );
                     activePlans.push(board.BoardTable[i-2][j+1]);
+                }
+                else
+                {
+                    if(board.BoardTable[i-2][j+1].figure.color == tempColor)
+                    {
+                        board.BoardTable[i-2][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-2][j+1]);
+                    }
                 }
             }
             if(i >= 1 && j <= 5)
@@ -493,8 +547,12 @@ class horse
                 }
                 else
                 {
-                    console.log("NONULLtx!! +x: "+ i + " y:" + j);
-                }    
+                    if(board.BoardTable[i-1][j+2].figure.color == tempColor)
+                    {
+                        board.BoardTable[i-1][j+2].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j+2]);
+                    }
+                }   
             }
             if(i >= 1 && j >= 2)
             {
@@ -503,7 +561,15 @@ class horse
                 {
                     board.BoardTable[i-1][j-2].object.material.emissive.setHex( 0xff0000 );
                     activePlans.push(board.BoardTable[i-1][j-2]);
-                }    
+                }
+                else
+                {
+                    if(board.BoardTable[i-1][j-2].figure.color == tempColor)
+                    {
+                        board.BoardTable[i-1][j-2].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i-1][j-2]);
+                    }
+                }   
             }       
             if(i <= 6 && j >= 2)
             {
@@ -512,7 +578,15 @@ class horse
                 {
                     board.BoardTable[i+1][j-2].object.material.emissive.setHex( 0xff0000 );
                     activePlans.push(board.BoardTable[i+1][j-2]);
-                }    
+                }
+                else
+                {
+                    if(board.BoardTable[i+1][j-2].figure.color == tempColor)
+                    {
+                        board.BoardTable[i+1][j-2].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j-2]);
+                    }
+                }      
             }     
             if(i <= 5 && j >= 1)
             {
@@ -521,6 +595,14 @@ class horse
                 {
                     board.BoardTable[i+2][j-1].object.material.emissive.setHex( 0xff0000 );
                     activePlans.push(board.BoardTable[i+2][j-1]);
+                }
+                else
+                {
+                    if(board.BoardTable[i+2][j-1].figure.color == tempColor)
+                    {
+                        board.BoardTable[i+2][j-1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+2][j-1]);
+                    }
                 }    
             }                
             if(i <= 6 && j <= 5)
@@ -530,7 +612,15 @@ class horse
                 {
                     board.BoardTable[i+1][j+2].object.material.emissive.setHex( 0xff0000 );
                     activePlans.push(board.BoardTable[i+1][j+2]);
-                }    
+                }
+                else
+                {
+                    if(board.BoardTable[i+1][j+2].figure.color == tempColor)
+                    {
+                        board.BoardTable[i+1][j+2].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+1][j+2]);
+                    }
+                }     
             }    
             if(i <= 5 && j <= 6)
             {
@@ -539,7 +629,15 @@ class horse
                 {
                     board.BoardTable[i+2][j+1].object.material.emissive.setHex( 0xff0000 );
                     activePlans.push(board.BoardTable[i+2][j+1]);
-                }    
+                }
+                else
+                {
+                    if(board.BoardTable[i+2][j+1].figure.color == tempColor)
+                    {
+                        board.BoardTable[i+2][j+1].object.material.emissive.setHex( 0xff0000 );
+                        activePlans.push(board.BoardTable[i+2][j+1]);
+                    }
+                }   
             }    
 
         }
@@ -552,83 +650,118 @@ class tower
         }
         showMove(i,j)
         {
+                        let tempColor = "b";
             console.log("figure pos: "+ i + " y:" + j);
-            //Paint planes
-            for(let t =i+1;t<8;t++)
+            if(board.BoardTable[i][j].figure.color == "w")
             {
-                if(board.BoardTable[t][j].figure == null)
-                {
-                   // console.log("NULLtx!! +x: "+ t + " y:" + j);
-                    board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
-                    activePlans.push(board.BoardTable[t][j]);
-                }
-                else
-                {
-                    //console.log("NONULLtx!! +x: "+ t + " y:" + j);
-                    break;
-                }
+                tempColor = "b";
             }
-                for(let t =i-1;t<8;t--)
-                {
-                    if(t >= 0)
-                    {
-                        if(board.BoardTable[t][j].figure == null)
-                        {
-                            //console.log("NULLt-x!! x: "+ t + " y:" + j);
-                            board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
-                            activePlans.push(board.BoardTable[t][j]);
-                        }
-                        else
-                        {
-                            //console.log("NONULLt-x!! x: "+ t + " y:" + j);
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        //console.log("NOONULLtx!! -x: "+ t + " y:" + j);
-                        break;
-                    }
-                }
-           
-
-            for(let t =j+1;t<8;t++)
+            else if(board.BoardTable[i][j].figure.color == "b")
             {
-                if(board.BoardTable[i][t].figure == null)
-                {
-                    //console.log("NULLty!! x: "+ i + " y:" + t);
-                    board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
-                    activePlans.push(board.BoardTable[i][t]);
-                }
-                else
-                {
-                    //console.log("NOTNULLty!! x: "+ i + " y:" + t);
-                    break;
-                }
+                tempColor = "w";
             }
-            for(let t =j-1;t<8;t--)
-            {
-                if(t >= 0)
-                {
-                    if(board.BoardTable[i][t].figure == null)
-                    {
-                        //console.log("NULLt-y!! x: "+ i + " y:" + t);
-                        board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
-                        activePlans.push(board.BoardTable[i][t]);
-                    }
-                    else
-                    {
-                        //console.log("NOTNULLt-y!! x: "+ i + " y:" + t);
-                        break;
-                    }
-                }
-                else
-                {
-                   // console.log("NOOTNULLt-y!! x: "+ i + " y:" + t);
-                    break;
-                }
-            }
-        }
+                     //Down
+                     for(let t =i+1;t<8;t++)
+                     {
+                         if(board.BoardTable[t][j].figure == null)
+                         {
+                            // console.log("NULLtx!! +x: "+ t + " y:" + j);
+                             board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                             activePlans.push(board.BoardTable[t][j]);
+                         }
+                         else
+                         {
+                            if(board.BoardTable[t][j].figure.color == tempColor)
+                            {
+                                console.log("down");
+                                board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                                activePlans.push(board.BoardTable[t][j]);
+                            }
+                             //console.log("NONULLtx!! +x: "+ t + " y:" + j);
+                             break;
+                         }
+                     }
+                        //up
+                         for(let t =i-1;t<8;t--)
+                         {
+                             if(t >= 0)
+                             {
+                                 if(board.BoardTable[t][j].figure == null)
+                                 {
+                                     //console.log("NULLt-x!! x: "+ t + " y:" + j);
+                                     board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                                     activePlans.push(board.BoardTable[t][j]);
+                                 }
+                                 else
+                                 {
+                                    if(board.BoardTable[t][j].figure.color == tempColor)
+                                    {
+                                        console.log("up");
+                                        board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                                        activePlans.push(board.BoardTable[t][j]);
+                                    }
+                                     //console.log("NONULLt-x!! x: "+ t + " y:" + j);
+                                     break;
+                                 }
+                             }
+                             else
+                             {
+                                 //console.log("NOONULLtx!! -x: "+ t + " y:" + j);
+                                 break;
+                             }
+                         }
+                    
+                         //right
+                     for(let t =j+1;t<8;t++)
+                     {
+                         if(board.BoardTable[i][t].figure == null)
+                         {
+                             //console.log("NULLty!! x: "+ i + " y:" + t);
+                             board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                             activePlans.push(board.BoardTable[i][t]);
+                         }
+                         else
+                         {
+                            if(board.BoardTable[i][t].figure.color == tempColor)
+                            {
+                                console.log("right");
+                                board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                                activePlans.push(board.BoardTable[i][t]);
+                            }
+                             //console.log("NOTNULLty!! x: "+ i + " y:" + t);
+                             break;
+                         }
+                     }
+                     //left
+                     for(let t =j-1;t<8;t--)
+                     {
+                         if(t >= 0)
+                         {
+                             if(board.BoardTable[i][t].figure == null)
+                             {
+                                 //console.log("NULLt-y!! x: "+ i + " y:" + t);
+                                 board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                                 activePlans.push(board.BoardTable[i][t]);
+                             }
+                             else
+                             {
+                                if(board.BoardTable[i][t].figure.color == tempColor)
+                                {
+                                    console.log("left");
+                                    board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                                    activePlans.push(board.BoardTable[i][t]);
+                                }
+                                 //console.log("NOTNULLt-y!! x: "+ i + " y:" + t);
+                                 break;
+                             }
+                         }
+                         else
+                         {
+                            // console.log("NOOTNULLt-y!! x: "+ i + " y:" + t);
+                             break;
+                         }
+                     }
+       }
 }
 class runner
 {
@@ -639,8 +772,16 @@ class runner
         showMove(i,j)
         {
             let s = j -1;
+            let tempColor = "b";
             console.log("figure pos: "+ i + " y:" + j);
-
+            if(board.BoardTable[i][j].figure.color == "w")
+            {
+                tempColor = "b";
+            }
+            else if(board.BoardTable[i][j].figure.color == "b")
+            {
+                tempColor = "w";
+            }
             //left up
             for(let t = i-1;t<8;t--)
             {
@@ -654,6 +795,12 @@ class runner
                     }
                     else
                     {
+                        if(board.BoardTable[t][s].figure.color == tempColor)
+                        {
+                            //console.log("cage");
+                            board.BoardTable[t][s].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][s]);
+                        }
                         //console.log("left up NONULLtx!! -x: "+ t + " y:" + s);
                         break;
                     }
@@ -680,7 +827,13 @@ class runner
                     }
                     else
                     {
-                        //console.log("right up NONULLtx!! +x: "+ t + " y:" + w);
+                        if(board.BoardTable[t][w].figure.color == tempColor)
+                        {
+                            console.log("right up");
+                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][w]);
+                        }
+                        console.log("right up NONULLtx!! +x: "+ t + " y:" + w);
                         break;
                     }
                 }
@@ -705,6 +858,12 @@ class runner
                     }
                     else
                     {
+                        if(board.BoardTable[t][w].figure.color == tempColor)
+                        {
+                            console.log("cage");
+                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][w]);
+                        }
                         //console.log("right down NONULLtx!! +y: "+ t + " y:" + w);
                         break;
                     }
@@ -730,6 +889,12 @@ class runner
                     }
                     else
                     {
+                        if(board.BoardTable[t][w].figure.color == tempColor)
+                        {
+                            console.log("cage");
+                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            activePlans.push(board.BoardTable[t][w]);
+                        }
                         //console.log("left down NONULLtx!! +y: "+ t + " y:" + w);
                         break;
                     }
@@ -851,39 +1016,39 @@ class Board {
                     {
                         if(j==0 || j==7)
                         {
-                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid, yForGrid , zForGrid )
+                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid-2.5, yForGrid , zForGrid-2.5 )
                             ,plane,4,null);
                         }
                         if(j==1 || j==6)
                         {
-                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid, yForGrid , zForGrid )
+                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid-2.5, yForGrid , zForGrid-2.5 )
                             ,plane,2,null);
                         }
                         if(j==2 || j==5)
                         {
-                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid, yForGrid , zForGrid )
+                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid-2.5, yForGrid , zForGrid-2.5 )
                             ,plane,3,null);
                         }
                         if(j==3)
                         {
-                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid, yForGrid , zForGrid )
+                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid-2.5, yForGrid , zForGrid-2.5 )
                             ,plane,5,null);
                         }
                         if(j==4)
                         {
-                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid, yForGrid , zForGrid )
+                            this.BoardTable[i][j] = new Plane(new THREE.Vector3( xForGrid-2.5, yForGrid , zForGrid-2.5 )
                             ,plane,6,null);
                         }
 
                     }
                     else if(i==1 || i==6)
                     {
-                        this.BoardTable[i][j] =new Plane(new THREE.Vector3( xForGrid, yForGrid , zForGrid )
+                        this.BoardTable[i][j] =new Plane(new THREE.Vector3( xForGrid-2.5, yForGrid , zForGrid-2.5 )
                         ,plane,1,null);
                     }
                     else
                     {
-                        this.BoardTable[i][j] =new Plane(new THREE.Vector3( xForGrid, yForGrid , zForGrid )
+                        this.BoardTable[i][j] =new Plane(new THREE.Vector3( xForGrid-2.5, yForGrid , zForGrid-2.5 )
                         ,plane,0,null);
                     }
                     xForGrid +=5;

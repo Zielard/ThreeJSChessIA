@@ -39,6 +39,7 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			raycaster = new THREE.Raycaster();
 			var mouse = new THREE.Vector2(), INTERSECTED;
 			var oldPlanePos;
+			var mustMoveColor = "w";
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			function onDocumentMouseMove( event ) {
 				event.preventDefault();
@@ -74,6 +75,8 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			var raycastOn = true;
 			//Grupa zawirajaca wszystkie obiekty zamiast pionkow
 			var group = new THREE.Group();
+			group.position.x = -2.5;
+			group.position.z = -2.5;
 			//Grupa zawirajaca wszystkie obiekty na scenie
 			var pawnsGroup = new THREE.Group();
 			var lightPos = 1;
@@ -114,6 +117,27 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			light.position.set( 0, 15, 0 );
 			groupLight.add( light );
 
+			            ///////////////////////////////////////
+            //cubemap / skybox
+            //
+			var path = "szachy.low.poly/textura/greenland/"; 
+            var format = '.jpg';
+			var urls = [ path + "px.jpg", path + "nx.jpg",
+					path + "py.jpg", path + "ny.jpg",
+					path + "pz.jpg", path + "nz.jpg"];
+					
+			//odbicia
+            var reflectionCube = new THREE.CubeTextureLoader().load( urls );
+            reflectionCube.format = THREE.RGBFormat;
+            //scene.background = reflectionCube;
+
+			//przezroczysto&#65533;ci
+			refractionCube = new THREE.CubeTextureLoader().load( urls );
+			refractionCube.mapping = THREE.CubeRefractionMapping;
+			refractionCube.format = THREE.RGBFormat;
+
+			//console.log(refractionCube);
+			//scene.background = reflectionCube;
 			// //tworzymy sfere w miejscu gdzie jest swiatlo
 			// var sphere = new THREE.SphereGeometry( 0.1, 10, 10);
 			// var smesh = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: 0xff8000 }) );
@@ -200,7 +224,10 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 						{				
 							if(board.BoardTable[i][j].figure.object == lastSelectRay)
 							{
-								board.BoardTable[i][j].figure.showMove(i,j);
+								if(mustMoveColor == board.BoardTable[i][j].figure.color)
+								{
+									board.BoardTable[i][j].figure.showMove(i,j);
+								}
 								i = 7;
 								j = 7;
 							}
@@ -210,6 +237,7 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			}
 			function changePawnPosition()
 			{
+				console.log("True change");
 				let find_pawn = false;
 				let find_plane = false;
 				var pawnIndex = new THREE.Vector2( 0, 0 );
@@ -235,9 +263,6 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 						}
 						if((find_pawn && find_plane) == true)
 						{
-							//console.log(board.BoardTable[pawnIndex.x][pawnIndex.y]);
-							//console.log(board.BoardTable[planeIndex.x][planeIndex.y]);
-
 							if(board.BoardTable[planeIndex.x][planeIndex.y].figure != null)
 							{
 								if(board.BoardTable[planeIndex.x][planeIndex.y].figure.color == "b")
@@ -261,8 +286,20 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 							board.BoardTable[pawnIndex.x][pawnIndex.y].figure = null;
 
 							oldPlanePos.position.x = board.BoardTable[planeIndex.x][planeIndex.y].position.x;
-							oldPlanePos.position.y = board.BoardTable[planeIndex.x][planeIndex.y].position.y+2;
+							oldPlanePos.position.y = board.BoardTable[planeIndex.x][planeIndex.y].position.y;
 							oldPlanePos.position.z = board.BoardTable[planeIndex.x][planeIndex.y].position.z;
+							if(mustMoveColor == "w")
+							{
+								mustMoveColor = "b";
+							}
+							else if(mustMoveColor == "b")
+							{
+								mustMoveColor = "w";
+							}
+							else
+							{
+								console.log("Change color error invalid color in fun");
+							}
 						i = 7;
 						j = 7;
 						}
@@ -273,7 +310,7 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			{
 					for(let i=0;i<deletePawnBlack.length;i++)
 					{
-						deletePawnBlack[i].position.x = 25;
+						deletePawnBlack[i].position.x = 22.5;
 					    deletePawnBlack[i].position.z = i*2.5;
 					}
 			}
@@ -281,7 +318,7 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			{
 				for(let i=0;i<deletePawnWhite.length;i++)
 					{
-						deletePawnWhite[i].position.x = -20;
+						deletePawnWhite[i].position.x = -22.5;
 					    deletePawnWhite[i].position.z = i*2.5;
 					}
 			}
