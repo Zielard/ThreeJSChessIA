@@ -26,12 +26,19 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 		</style>
 	</head>
 	<body>
-		<script src="js/three.js"></script>
-		<script src="js/Board.js">//biblioteka do kontroli widoku</script>
-		<script src='js/StartPack.js'>//biblioteka do pustej sceny</script>
-		<script src="js/OBJLoader.js">//wczytywanie pilku obj</script>
-		<script src="js/MTLLoader.js">//wczytanie dodatkowego pliku materialow do obj</script>
-		<script src="js/OrbitControls.js">//biblioteka do kontroli widoku</script>
+		<script src="js/threeJS/three.js"></script>
+		<script src="js/myJS/Board.js">//biblioteka do kontroli widoku</script>
+		<script src='js/myJS/StartPack.js'>//biblioteka dodajaca pionki</script>
+		<script src='js/myJS/Pawns/horse.js'>//biblioteka dodajaca pionki</script>
+		<script src='js/myJS/Pawns/king.js'>//biblioteka dodajaca pionki</script>
+		<script src='js/myJS/Pawns/pawn.js'>//biblioteka dodajaca pionki</script>
+		<script src='js/myJS/Pawns/queen.js'>//biblioteka dodajaca pionki</script>
+		<script src='js/myJS/Pawns/runner.js'>//biblioteka dodajaca pionki</script>
+		<script src='js/myJS/Pawns/tower.js'>//biblioteka dodajaca pionki</script>
+		<script src="js/threeJS/OBJLoader.js">//wczytywanie pilku obj</script>
+		<script src="js/threeJS/MTLLoader.js">//wczytanie dodatkowego pliku materialow do obj</script>
+		<script src="js/threeJS/OrbitControls.js">//biblioteka do kontroli widoku</script>
+		<script src="js/threeJS/OrbitControls.js">//biblioteka do kontroli widoku</script>
 		<script>
 
 			//FOR RAYCST!!!//////////////////////////////////////////////////////////
@@ -136,6 +143,25 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			refractionCube.mapping = THREE.CubeRefractionMapping;
 			refractionCube.format = THREE.RGBFormat;
 
+			var textureLoader = new THREE.TextureLoader();
+			var mapHeight = new THREE.TextureLoader().load( "szachy.low.poly/textura/Normale.szachy.png" );
+			var mapEnv = new THREE.TextureLoader().load( "szachy.low.poly/textura/env.png" );
+			var normalMapA = textureLoader.load( "szachy.low.poly/textura/Normale.szachy.png" );
+
+			var roughnessMapA = textureLoader.load( "szachy.low.poly/textura/Normale.szachy_COLOR.jpg" );
+			var materialNormal= new THREE.MeshStandardMaterial( {
+
+				color: 0xA9A9A9,
+				roughness:  0.2,
+				metalness:  0.23,
+				normalMap: normalMapA,
+				aoMapIntensity: 1,
+				normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+				envMap: reflectionCube,
+				flatShading :true,
+				envMapIntensity :3.0,
+				shading: THREE.SmoothShading,
+			} );
 			//console.log(refractionCube);
 			//scene.background = reflectionCube;
 			// //tworzymy sfere w miejscu gdzie jest swiatlo

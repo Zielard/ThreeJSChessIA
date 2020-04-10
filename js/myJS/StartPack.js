@@ -72,9 +72,6 @@ var StartPack = {
 
 	materials.preload();
 	console.log(materials);
-	var mapHeight = new THREE.TextureLoader().load( "szachy.low.poly/textura/Normale.szachy.png" );
-	var mapEnv = new THREE.TextureLoader().load( "szachy.low.poly/textura/env.png" );
-
 	materials.materials.material_z_normalami.bumpMap = mapHeight;
 	//materials.materials.material_z_normalami.envMap = mapEnv;	
 	//materials.materials.material_z_normalami.specular = 0x222222;
@@ -97,7 +94,7 @@ var StartPack = {
 	object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				//child.material = ModelMaterial;
-				child.geometry.scale(1,1,1);
+				child.geometry.scale(1.5,1.5,1.5);
 				
 			}
 		} );
@@ -152,17 +149,30 @@ AddPawns : function(windowThis) {
 		{
 			if(i==0 || i==7)
 			{
-				//Tower
-				if(j==0 || j==7)
-				{
-					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
+					//Tower
+					if(j==0 || j==7)
+					{
+
+					let material = new THREE.MeshStandardMaterial( {
+					color: 0xC0C0C0,
+					roughness:  0.5,
+					metalness:  0.5,
+					normalMap: normalMapA,
+					aoMapIntensity: 1,
+					normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+					envMap: reflectionCube,
+					} );
 					let geometry = new THREE.BufferGeometry();
 					geometry = geometry.copy(pawns.wieza.children[0].geometry);
-					material = material.copy(pawns.wieza.children[0].material);
+					material = material.copy(materialNormal);
+					material.flatShading =false;
+
 					let mesh = new THREE.Mesh( geometry, material );
+					mesh.material.flatShading = false;
+
 					if((i==0 || i==7) && (i==0))
 					{
-						mesh.material.color.set(0x4b4b4b);
+						mesh.material.color.set(0xC5B358);
 						board.BoardTable[i][j].figure = new tower(mesh,"b");
 					}
 					else
@@ -177,11 +187,20 @@ AddPawns : function(windowThis) {
 				//horse
 				if(j==1 || j==6)
 				{
-					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
-					let geometry = new THREE.BufferGeometry();
-					geometry = geometry.copy(pawns.kon.children[0].geometry);
-					material = material.copy(pawns.kon.children[0].material);
-					let mesh = new THREE.Mesh( geometry, material );
+					let material = new THREE.MeshStandardMaterial( {
+						color: 0xffffff,
+						roughness:  0.1,
+						metalness:  0.1,
+						normalMap: normalMapA,
+						aoMapIntensity: 1,
+						normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+						envMap: reflectionCube,
+						} );
+						let geometry = new THREE.BufferGeometry();
+						geometry = geometry.copy(pawns.kon.children[0].geometry);
+						material = material.copy(materialNormal);
+						material.flatShading =false;
+						let mesh = new THREE.Mesh( geometry, material );
 					if(i==7)
 					{
 						board.BoardTable[i][j].figure = new horse(mesh,"w");
@@ -189,7 +208,7 @@ AddPawns : function(windowThis) {
 					else if(i==0)
 					{
 						board.BoardTable[i][j].figure = new horse(mesh,"b");
-						mesh.material.color.set(0x4b4b4b);
+						mesh.material.color.set(0xC5B358);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
@@ -199,11 +218,20 @@ AddPawns : function(windowThis) {
 				//Runner
 				if(j==2 || j==5)
 				{
-					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
-					let geometry = new THREE.BufferGeometry();
-					geometry = geometry.copy(pawns.goniec.children[0].geometry);
-					material = material.copy(pawns.goniec.children[0].material);
-					let mesh = new THREE.Mesh( geometry, material );
+					let material = new THREE.MeshStandardMaterial( {
+						color: 0xffffff,
+						roughness:  0.1,
+						metalness:  0.1,
+						normalMap: normalMapA,
+						aoMapIntensity: 1,
+						normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+						envMap: reflectionCube,
+						} );
+						let geometry = new THREE.BufferGeometry();
+						geometry = geometry.copy(pawns.goniec.children[0].geometry);
+						material = material.copy(materialNormal);
+						material.flatShading =false;
+						let mesh = new THREE.Mesh( geometry, material );
 					if(i==7)
 					{
 					board.BoardTable[i][j].figure = new runner(mesh,"w");
@@ -211,7 +239,7 @@ AddPawns : function(windowThis) {
 					else if(i==0)
 					{
 					board.BoardTable[i][j].figure = new runner(mesh,"b");
-					mesh.material.color.set(0x4b4b4b);
+					mesh.material.color.set(0xC5B358);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
@@ -221,11 +249,20 @@ AddPawns : function(windowThis) {
 				//King
 				if(j==3)
 				{
-					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
-					let geometry = new THREE.BufferGeometry();
-					geometry = geometry.copy(pawns.krol.children[0].geometry);
-					material = material.copy(pawns.krol.children[0].material);
-					let mesh = new THREE.Mesh( geometry, material );
+					let material = new THREE.MeshStandardMaterial( {
+						color: 0xffffff,
+						roughness:  0.1,
+						metalness:  0.1,
+						normalMap: normalMapA,
+						aoMapIntensity: 1,
+						normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+						envMap: reflectionCube,
+						} );
+						let geometry = new THREE.BufferGeometry();
+						geometry = geometry.copy(pawns.krol.children[0].geometry);
+						material = material.copy(materialNormal);
+						material.flatShading =false;
+						let mesh = new THREE.Mesh( geometry, material );
 					if(j==3 && i == 7)
 					{
 					board.BoardTable[i][j].figure = new king(mesh,"w");
@@ -233,7 +270,7 @@ AddPawns : function(windowThis) {
 					else if(j==3 && i == 0)
 					{
 					board.BoardTable[i][j].figure = new king(mesh,"b");
-					mesh.material.color.set(0x4b4b4b);
+					mesh.material.color.set(0xC5B358);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
@@ -243,11 +280,20 @@ AddPawns : function(windowThis) {
 				//Queen
 				if(j==4)
 				{
-					let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
-					let geometry = new THREE.BufferGeometry();
-					geometry = geometry.copy(pawns.krolowa.children[0].geometry);
-					material = material.copy(pawns.krolowa.children[0].material);
-					let mesh = new THREE.Mesh( geometry, material );
+					let material = new THREE.MeshStandardMaterial( {
+						color: 0xffffff,
+						roughness:  0.1,
+						metalness:  0.1,
+						normalMap: normalMapA,
+						aoMapIntensity: 1,
+						normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+						envMap: reflectionCube,
+						} );
+						let geometry = new THREE.BufferGeometry();
+						geometry = geometry.copy(pawns.krolowa.children[0].geometry);
+						material = material.copy(materialNormal);
+						material.flatShading =false;
+						let mesh = new THREE.Mesh( geometry, material );
 					if(j==4 && i == 7)
 					{
 					board.BoardTable[i][j].figure = new queen(mesh,"w");
@@ -255,7 +301,7 @@ AddPawns : function(windowThis) {
 					else if(j==4 && i == 0)
 					{
 					board.BoardTable[i][j].figure = new queen(mesh,"b");
-					mesh.material.color.set(0x4b4b4b);
+					mesh.material.color.set(0xC5B358);
 					}
 					board.BoardTable[i][j].figure.object.position.x = board.BoardTable[i][j].position.x;
 					board.BoardTable[i][j].figure.object.position.y = board.BoardTable[i][j].position.y;
@@ -267,17 +313,24 @@ AddPawns : function(windowThis) {
 			//Pawns
 			else if(i==1 || i==6)
 			{
-				// var mesh = new THREE.Mesh( pawns.pionek.geometry, pawns.pionek.material );
-				// board.BoardTable[i][j].figure = mesh;
-				let material = new THREE.MeshPhongMaterial( { color: 0xffffff} );	
-				let geometry = new THREE.BufferGeometry();
-				geometry = geometry.copy(pawns.pionek.children[0].geometry);
-				material = material.copy(pawns.pionek.children[0].material);
-				let mesh = new THREE.Mesh( geometry, material );
+				let material = new THREE.MeshStandardMaterial( {
+					color: 0xffffff,
+					roughness:  0.6,
+					metalness:  0.6,
+					normalMap: normalMapA,
+					aoMapIntensity: 1,
+					normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+					envMap: reflectionCube,
+					} );
+					let geometry = new THREE.BufferGeometry();
+					geometry = geometry.copy(pawns.pionek.children[0].geometry);
+					material = material.copy(materialNormal);
+					material.flatShading =false;
+					let mesh = new THREE.Mesh( geometry, material );
 				if(i == 1)
 				{
 				board.BoardTable[i][j].figure = new pawn(mesh,"b");
-				mesh.material.color.set(0x4b4b4b);
+				mesh.material.color.set(0xC5B358);
 				}
 				else if(i == 6)
 				{
