@@ -1,3 +1,4 @@
+
 class horse
 {
     constructor(object_,color_) {
@@ -24,14 +25,14 @@ class horse
                 // UP LEFT
                 if(board.BoardTable[i-2][j-1].figure == null)
                 {
-                    board.BoardTable[i-2][j-1].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i-2][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i-2][j-1]);
                 }
                 else
                 {
                     if(board.BoardTable[i-2][j-1].figure.color == tempColor)
                     {
-                        board.BoardTable[i-2][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-2][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-2][j-1]);
                     }
                 }
@@ -41,14 +42,14 @@ class horse
                 // UP RIGHT
                 if(board.BoardTable[i-2][j+1].figure == null)
                 {
-                    board.BoardTable[i-2][j+1].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i-2][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i-2][j+1]);
                 }
                 else
                 {
                     if(board.BoardTable[i-2][j+1].figure.color == tempColor)
                     {
-                        board.BoardTable[i-2][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-2][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-2][j+1]);
                     }
                 }
@@ -58,14 +59,14 @@ class horse
                 // UP RIGHT RIGHT
                 if(board.BoardTable[i-1][j+2].figure == null)
                 {
-                    board.BoardTable[i-1][j+2].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i-1][j+2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i-1][j+2]);
                 }
                 else
                 {
                     if(board.BoardTable[i-1][j+2].figure.color == tempColor)
                     {
-                        board.BoardTable[i-1][j+2].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j+2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j+2]);
                     }
                 }   
@@ -75,14 +76,14 @@ class horse
                 //UP LEFT LEFT
                 if(board.BoardTable[i-1][j-2].figure == null)
                 {
-                    board.BoardTable[i-1][j-2].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i-1][j-2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i-1][j-2]);
                 }
                 else
                 {
                     if(board.BoardTable[i-1][j-2].figure.color == tempColor)
                     {
-                        board.BoardTable[i-1][j-2].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j-2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j-2]);
                     }
                 }   
@@ -92,14 +93,14 @@ class horse
                 //DOWN LEFT LEFT
                 if(board.BoardTable[i+1][j-2].figure == null)
                 {
-                    board.BoardTable[i+1][j-2].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i+1][j-2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i+1][j-2]);
                 }
                 else
                 {
                     if(board.BoardTable[i+1][j-2].figure.color == tempColor)
                     {
-                        board.BoardTable[i+1][j-2].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j-2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j-2]);
                     }
                 }      
@@ -109,14 +110,14 @@ class horse
                 //DOWN LEFT
                 if(board.BoardTable[i+2][j-1].figure == null)
                 {
-                    board.BoardTable[i+2][j-1].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i+2][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i+2][j-1]);
                 }
                 else
                 {
                     if(board.BoardTable[i+2][j-1].figure.color == tempColor)
                     {
-                        board.BoardTable[i+2][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+2][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+2][j-1]);
                     }
                 }    
@@ -126,14 +127,14 @@ class horse
                 //DOWN RIGHT
                 if(board.BoardTable[i+1][j+2].figure == null)
                 {
-                    board.BoardTable[i+1][j+2].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i+1][j+2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i+1][j+2]);
                 }
                 else
                 {
                     if(board.BoardTable[i+1][j+2].figure.color == tempColor)
                     {
-                        board.BoardTable[i+1][j+2].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j+2].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j+2]);
                     }
                 }     
@@ -143,14 +144,14 @@ class horse
                 //DOWN RIGHT RIGHT
                 if(board.BoardTable[i+2][j+1].figure == null)
                 {
-                    board.BoardTable[i+2][j+1].object.material.emissive.setHex( 0xff0000 );
+                    board.BoardTable[i+2][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                     activePlans.push(board.BoardTable[i+2][j+1]);
                 }
                 else
                 {
                     if(board.BoardTable[i+2][j+1].figure.color == tempColor)
                     {
-                        board.BoardTable[i+2][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+2][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+2][j+1]);
                     }
                 }   

@@ -1,17 +1,8 @@
 <!--------------------------------------------------------------------------------
 	
-	Aplikacja three.js - 06 swiatlo (swiatlo porusza sie relatywnie w stosunku do obiektu)
-		Poniewaz Three.js ma spojrzenie z punktu widzenia obiektu wiec aby dokonac obrotu do okola osi
-		w pierwszej kolejnosci nalezy stworzyc obiekty ktore juz sa przesuniete
-		takie obiekty dodajemy do grupy i teraz gdy obracamy grupe to obiekty obracaja sie po okregu wokol srodka grupy
+	Aplikacja three.js - Gry w szachy z siecia neuronowa
 	
-	P.Kowalczyk styczen 2018
-	Na podstawie 
-	https://threejs.org/docs/index.html#manual/introduction/Creating-a-scene
-
-Zmiany:
-wersja orginalna							P.K. 01/01/2018
-dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
+	Autor : P.Zielinski luty 2020
 
 -------------------------------------------------------------------------------->
 
@@ -27,7 +18,13 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 	</head>
 	<body>
 		<script src="js/threeJS/three.js"></script>
+		<script src='js/threeJS/dat.gui.min.js'></script>
+		<script src="js/threeJS/OBJLoader.js">//wczytywanie pilku obj</script>
+		<script src="js/threeJS/MTLLoader.js">//wczytanie dodatkowego pliku materialow do obj</script>
+		<script src="js/threeJS/OrbitControls.js">//biblioteka do kontroli widoku</script>
+
 		<script src="js/myJS/Board.js">//biblioteka do kontroli widoku</script>
+		<script src="js/myJS/gui.js">//biblioteka do kontroli widoku</script>
 		<script src='js/myJS/StartPack.js'>//biblioteka dodajaca pionki</script>
 		<script src='js/myJS/Pawns/horse.js'>//biblioteka dodajaca pionki</script>
 		<script src='js/myJS/Pawns/king.js'>//biblioteka dodajaca pionki</script>
@@ -35,10 +32,6 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 		<script src='js/myJS/Pawns/queen.js'>//biblioteka dodajaca pionki</script>
 		<script src='js/myJS/Pawns/runner.js'>//biblioteka dodajaca pionki</script>
 		<script src='js/myJS/Pawns/tower.js'>//biblioteka dodajaca pionki</script>
-		<script src="js/threeJS/OBJLoader.js">//wczytywanie pilku obj</script>
-		<script src="js/threeJS/MTLLoader.js">//wczytanie dodatkowego pliku materialow do obj</script>
-		<script src="js/threeJS/OrbitControls.js">//biblioteka do kontroli widoku</script>
-		<script src="js/threeJS/OrbitControls.js">//biblioteka do kontroli widoku</script>
 		<script>
 
 			//FOR RAYCST!!!//////////////////////////////////////////////////////////
@@ -147,7 +140,7 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 			var mapHeight = new THREE.TextureLoader().load( "szachy.low.poly/textura/Normale.szachy.png" );
 			var mapEnv = new THREE.TextureLoader().load( "szachy.low.poly/textura/env.png" );
 			var normalMapA = textureLoader.load( "szachy.low.poly/textura/Normale.szachy.png" );
-
+			var AoMapBoard = textureLoader.load( "new_model/Stone_Chess_Board_v1/12951_Stone_Chess_Board_diff.jpg" );
 			var roughnessMapA = textureLoader.load( "szachy.low.poly/textura/Normale.szachy_COLOR.jpg" );
 			var materialNormal= new THREE.MeshStandardMaterial( {
 
@@ -162,14 +155,6 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 				envMapIntensity :3.0,
 				shading: THREE.SmoothShading,
 			} );
-			//console.log(refractionCube);
-			//scene.background = reflectionCube;
-			// //tworzymy sfere w miejscu gdzie jest swiatlo
-			// var sphere = new THREE.SphereGeometry( 0.1, 10, 10);
-			// var smesh = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: 0xff8000 }) );
-			// smesh.position.copy( light.position );	
-			// groupLight.add(smesh);
-			
 		
 			//dodajemy swiatlo i kulke do grupy ktora bedzie zawierala jeszcze kostke
 			group.add(groupLight);
@@ -196,39 +181,42 @@ dodana manipulacja swiatlem przez wheel     P.K. 20/10/2018
 
 
 								if ( INTERSECTED != intersects[ 0 ].object.parent ) {
-								if(lastSelectRay == null)
-								{
-								INTERSECTED = intersects[ 0 ].object;
-								INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-								INTERSECTED.material.emissive.setHex( 0xff0000 );
-								lastSelectRay = intersects[ 0 ].object;
-								oldPlanePos = intersects[ 0 ].object;
-								}
-								if(lastSelectRay != intersects[ 0 ].object)
-								{
-									// 	console.log("Change");
-									// for(let i =0;i<8;i++)
-									// {
-									// 	for(let j =0;j<8;j++)
-									// 	{
-									// 		console.log(board.BoardTable[i][j]);
-									// 	}
-									// }
-										lastSelectRay.material.emissive.setHex( 0x000000 );
+									if(intersects[ 0 ].object != boardObj)
+									{
+										if(lastSelectRay == null)
+										{
 										INTERSECTED = intersects[ 0 ].object;
 										INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-										INTERSECTED.material.emissive.setHex( 0xff0000 );
+										INTERSECTED.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
 										lastSelectRay = intersects[ 0 ].object;
-
-										for(let i =0;i<activePlans.length;i++)
-										{
-											if(activePlans[i].object == lastSelectRay)
-											{
-												changePawnPosition();
-											}
+										oldPlanePos = intersects[ 0 ].object;
 										}
-										activePlans = [];
-								}
+										if(lastSelectRay != intersects[ 0 ].object)
+										{
+											// 	console.log("Change");
+											// for(let i =0;i<8;i++)
+											// {
+											// 	for(let j =0;j<8;j++)
+											// 	{
+											// 		console.log(board.BoardTable[i][j]);
+											// 	}
+											// }
+												lastSelectRay.material.emissive.setHex( 0x000000 );
+												INTERSECTED = intersects[ 0 ].object;
+												INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+												INTERSECTED.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
+												lastSelectRay = intersects[ 0 ].object;
+
+												for(let i =0;i<activePlans.length;i++)
+												{
+													if(activePlans[i].object == lastSelectRay)
+													{
+														changePawnPosition();
+													}
+												}
+												activePlans = [];
+										}
+									}
 							}
 						else
 						{

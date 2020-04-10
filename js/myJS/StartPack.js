@@ -15,7 +15,7 @@ var pawns = {
 	goniec: 0,
 	krol: 0,
 	krolowa: 0,};
-
+var boardObj;
 var StartPack = {
   loadBaseObj : function() {		
 			board = new Board();		
@@ -30,13 +30,15 @@ var StartPack = {
 		'szachy.low.poly/obj/',
 		'szachy.low.poly/obj/',
 		'szachy.low.poly/obj/',
+		'szachy.low.poly/obj/',
 		'szachy.low.poly/obj/'];
 	let tabObj = ['pionek',
 		'wieza',
 		'kon',
 		'goniec',
 		'krol',
-		'krolowa'];
+		'krolowa',
+		'plansza'];
 
 // 	let tabPath = [
 // 	'new_model/Stone_Chess_Pawn_Side_A_v2/',
@@ -44,14 +46,17 @@ var StartPack = {
 // 	'new_model/Stone_Chess_Knight_Side_A_v2/',
 // 	'new_model/Stone_Chess_Bishop_Side_A_v2/',
 // 	'new_model/Stone_Chess_King_Side_A_v2/',
-// 	'new_model/Stone_Chess_Queen_Side_A_v2/'];
+// 	'new_model/Stone_Chess_Queen_Side_A_v2/',
+// 	'szachy.low.poly/obj/'];
 // let tabObj = [
 // 	'12944_Stone_Chess_Pawn_Side_A_V2_L3',
 // 	'12941_Stone_Chess_Rook_Side_A_V2_l1',
 // 	'12943_Stone_Chess_Knight_Side_A_v2_l1',
 // 	'12942_Stone_Chess_Bishop_V2_l1',
 // 	'12939_Stone_Chess_King_Side_A_V2_l1',
-// 	'12940_Stone_Chess_Queen_Side_A_V2_l1'];
+// 	'12940_Stone_Chess_Queen_Side_A_V2_l1',
+// 	'plansza'];
+
 // let tabPath = ['obj/',
 // 	'obj/',
 // 	'obj/',
@@ -72,7 +77,7 @@ var StartPack = {
 
 	materials.preload();
 	console.log(materials);
-	materials.materials.material_z_normalami.bumpMap = mapHeight;
+	//materials.materials.material_z_normalami.bumpMap = mapHeight;
 	//materials.materials.material_z_normalami.envMap = mapEnv;	
 	//materials.materials.material_z_normalami.specular = 0x222222;
 	//materials.materials.material_z_normalami.color = 0xffffff;
@@ -123,8 +128,29 @@ var StartPack = {
 		{
 			pawns.krolowa =object;
 		}
-
-		if(i != 5)
+		else if(i == 6)
+		{
+			let material = new THREE.MeshStandardMaterial( {
+				color: 0xffffff,
+				roughness:  0.2,
+				metalness:  0.2,
+				map: AoMapBoard,
+				normalMap: AoMapBoard,
+				aoMapIntensity: 0.1,
+				normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
+				envMap: reflectionCube,
+				} );
+				let geometry = new THREE.BufferGeometry();
+				let sss = 0.35;
+				object.children[0].geometry.scale(sss,1,sss);
+				geometry = geometry.copy(object.children[0].geometry);
+				let mesh = new THREE.Mesh( geometry, material );
+				mesh.position.y= -1.51;
+				mesh.rotation.y= 3.14/2;
+				boardObj = mesh;
+			scene.add(mesh);
+		}
+		if(i != 6)
 		{
 			i++;
 			StartPack.AddObject(i);
@@ -141,8 +167,6 @@ var StartPack = {
   ,
 AddPawns : function(windowThis) {
 
-
-	console.log(windowThis);
 	for(let i=0;i<8;i++)
 	{
 		for(let j=0;j<8;j++)
@@ -203,6 +227,7 @@ AddPawns : function(windowThis) {
 						let mesh = new THREE.Mesh( geometry, material );
 					if(i==7)
 					{
+						mesh.rotation.y = 3.14;
 						board.BoardTable[i][j].figure = new horse(mesh,"w");
 					}
 					else if(i==0)
@@ -318,7 +343,7 @@ AddPawns : function(windowThis) {
 					roughness:  0.6,
 					metalness:  0.6,
 					normalMap: normalMapA,
-					aoMapIntensity: 1,
+					aoMapIntensity: 0.5,
 					normalScale: new THREE.Vector2( 1, - 1 ), // why does the normal map require negation in this case?
 					envMap: reflectionCube,
 					} );

@@ -21,7 +21,7 @@ class tower
                      {
                          if(board.BoardTable[t][j].figure == null)
                          {
-                             board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                             board.BoardTable[t][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                              activePlans.push(board.BoardTable[t][j]);
                          }
                          else
@@ -29,7 +29,7 @@ class tower
                             if(board.BoardTable[t][j].figure.color == tempColor)
                             {
                                 console.log("down");
-                                board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                                board.BoardTable[t][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                                 activePlans.push(board.BoardTable[t][j]);
                             }
                              break;
@@ -43,7 +43,7 @@ class tower
                                  if(board.BoardTable[t][j].figure == null)
                                  {
                                      //console.log("NULLt-x!! x: "+ t + " y:" + j);
-                                     board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                                     board.BoardTable[t][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                                      activePlans.push(board.BoardTable[t][j]);
                                  }
                                  else
@@ -51,7 +51,7 @@ class tower
                                     if(board.BoardTable[t][j].figure.color == tempColor)
                                     {
                                         console.log("up");
-                                        board.BoardTable[t][j].object.material.emissive.setHex( 0xff0000 );
+                                        board.BoardTable[t][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                                         activePlans.push(board.BoardTable[t][j]);
                                     }
                                      //console.log("NONULLt-x!! x: "+ t + " y:" + j);
@@ -71,7 +71,7 @@ class tower
                          if(board.BoardTable[i][t].figure == null)
                          {
                              //console.log("NULLty!! x: "+ i + " y:" + t);
-                             board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                             board.BoardTable[i][t].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                              activePlans.push(board.BoardTable[i][t]);
                          }
                          else
@@ -79,7 +79,7 @@ class tower
                             if(board.BoardTable[i][t].figure.color == tempColor)
                             {
                                 console.log("right");
-                                board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                                board.BoardTable[i][t].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                                 activePlans.push(board.BoardTable[i][t]);
                             }
                              //console.log("NOTNULLty!! x: "+ i + " y:" + t);
@@ -94,7 +94,7 @@ class tower
                              if(board.BoardTable[i][t].figure == null)
                              {
                                  //console.log("NULLt-y!! x: "+ i + " y:" + t);
-                                 board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                                 board.BoardTable[i][t].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                                  activePlans.push(board.BoardTable[i][t]);
                              }
                              else
@@ -102,7 +102,7 @@ class tower
                                 if(board.BoardTable[i][t].figure.color == tempColor)
                                 {
                                     console.log("left");
-                                    board.BoardTable[i][t].object.material.emissive.setHex( 0xff0000 );
+                                    board.BoardTable[i][t].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                                     activePlans.push(board.BoardTable[i][t]);
                                 }
                                  //console.log("NOTNULLt-y!! x: "+ i + " y:" + t);

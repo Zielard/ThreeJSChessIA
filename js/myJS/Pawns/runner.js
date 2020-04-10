@@ -25,7 +25,7 @@ class runner
                     if(board.BoardTable[t][s].figure == null)
                     {
                        //console.log("left up NULLtx!! -x: "+ t + " y:" + s);
-                        board.BoardTable[t][s].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[t][s].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[t][s]);
                     }
                     else
@@ -33,7 +33,7 @@ class runner
                         if(board.BoardTable[t][s].figure.color == tempColor)
                         {
                             //console.log("cage");
-                            board.BoardTable[t][s].object.material.emissive.setHex( 0xff0000 );
+                            board.BoardTable[t][s].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                             activePlans.push(board.BoardTable[t][s]);
                         }
                         //console.log("left up NONULLtx!! -x: "+ t + " y:" + s);
@@ -57,7 +57,7 @@ class runner
                     if(board.BoardTable[t][w].figure == null)
                     {
                        // console.log("right up: "+ t + " y:" + w);
-                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[t][w].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[t][w]);
                     }
                     else
@@ -65,7 +65,7 @@ class runner
                         if(board.BoardTable[t][w].figure.color == tempColor)
                         {
                             console.log("right up");
-                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            board.BoardTable[t][w].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                             activePlans.push(board.BoardTable[t][w]);
                         }
                         console.log("right up NONULLtx!! +x: "+ t + " y:" + w);
@@ -88,7 +88,7 @@ class runner
                     if(board.BoardTable[t][w].figure == null)
                     {
                       // console.log("right down: "+ t + " y:" + w);
-                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[t][w].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[t][w]);
                     }
                     else
@@ -96,7 +96,7 @@ class runner
                         if(board.BoardTable[t][w].figure.color == tempColor)
                         {
                             console.log("cage");
-                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            board.BoardTable[t][w].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                             activePlans.push(board.BoardTable[t][w]);
                         }
                         //console.log("right down NONULLtx!! +y: "+ t + " y:" + w);
@@ -119,7 +119,7 @@ class runner
                     if(board.BoardTable[t][w].figure == null)
                     {
                         //console.log("left down: "+ t + " y:" + w);
-                        board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[t][w].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[t][w]);
                     }
                     else
@@ -127,7 +127,7 @@ class runner
                         if(board.BoardTable[t][w].figure.color == tempColor)
                         {
                             console.log("cage");
-                            board.BoardTable[t][w].object.material.emissive.setHex( 0xff0000 );
+                            board.BoardTable[t][w].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                             activePlans.push(board.BoardTable[t][w]);
                         }
                         //console.log("left down NONULLtx!! +y: "+ t + " y:" + w);

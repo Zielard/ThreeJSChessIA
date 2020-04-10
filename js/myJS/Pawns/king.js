@@ -13,7 +13,7 @@ class king
                 {
                     if((board.BoardTable[i+1][j].figure == null) || ((board.BoardTable[i+1][j].figure != null) && (board.BoardTable[i+1][j].figure.color == "w")))
                     {
-                        board.BoardTable[i+1][j].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j]);
                     }
                 }
@@ -21,7 +21,7 @@ class king
                 {
                     if((board.BoardTable[i-1][j].figure == null) || ((board.BoardTable[i-1][j].figure != null) && (board.BoardTable[i-1][j].figure.color == "w")))
                     {
-                        board.BoardTable[i-1][j].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j]);
                     }
                 }
@@ -29,7 +29,7 @@ class king
                 {
                     if((board.BoardTable[i][j+1].figure == null) || ((board.BoardTable[i][j+1].figure != null) && (board.BoardTable[i][j+1].figure.color == "w")))
                     {
-                        board.BoardTable[i][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i][j+1]);
                     }
                 }
@@ -37,7 +37,7 @@ class king
                 {
                     if((board.BoardTable[i][j-1].figure == null) || ((board.BoardTable[i][j-1].figure != null) && (board.BoardTable[i][j-1].figure.color == "w")))
                     {
-                        board.BoardTable[i][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i][j-1]);
                     }
                 }
@@ -45,7 +45,7 @@ class king
                 {
                     if((board.BoardTable[i-1][j+1].figure == null) || ((board.BoardTable[i-1][j+1].figure != null) && (board.BoardTable[i-1][j+1].figure.color == "w")))
                     {
-                        board.BoardTable[i-1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j+1]);
                     }
                 }
@@ -53,7 +53,7 @@ class king
                 {
                     if((board.BoardTable[i+1][j-1].figure == null) || ((board.BoardTable[i+1][j-1].figure != null) && (board.BoardTable[i+1][j-1].figure.color == "w")))
                     {
-                        board.BoardTable[i+1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j-1]);
                     }
                 }
@@ -61,7 +61,7 @@ class king
                 {
                     if((board.BoardTable[i+1][j+1].figure == null) || ((board.BoardTable[i+1][j+1].figure != null) && (board.BoardTable[i+1][j+1].figure.color == "w")))
                     {
-                        board.BoardTable[i+1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j+1]);
                     }
                 }
@@ -69,7 +69,7 @@ class king
                 {
                     if((board.BoardTable[i-1][j-1].figure == null) || ((board.BoardTable[i-1][j-1].figure != null) && (board.BoardTable[i-1][j-1].figure.color == "w")))
                     {
-                        board.BoardTable[i-1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j-1]);
                     }
                 }
@@ -80,7 +80,7 @@ class king
                 {
                     if((board.BoardTable[i+1][j].figure == null) || ((board.BoardTable[i+1][j].figure != null) && (board.BoardTable[i+1][j].figure.color == "b")))
                     {
-                        board.BoardTable[i+1][j].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j]);
                     }
                 }
@@ -88,7 +88,7 @@ class king
                 {
                     if((board.BoardTable[i-1][j].figure == null) || ((board.BoardTable[i-1][j].figure != null) && (board.BoardTable[i-1][j].figure.color == "b")))
                     {
-                        board.BoardTable[i-1][j].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j]);
                     }
                 }
@@ -96,7 +96,7 @@ class king
                 {
                     if((board.BoardTable[i][j+1].figure == null) || ((board.BoardTable[i][j+1].figure != null) && (board.BoardTable[i][j+1].figure.color == "b")))
                     {
-                        board.BoardTable[i][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i][j+1]);
                     }
                 }
@@ -104,7 +104,7 @@ class king
                 {
                     if((board.BoardTable[i][j-1].figure == null) || ((board.BoardTable[i][j-1].figure != null) && (board.BoardTable[i][j-1].figure.color == "b")))
                     {
-                        board.BoardTable[i][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i][j-1]);
                     }
                 }
@@ -112,7 +112,7 @@ class king
                 {
                     if((board.BoardTable[i-1][j+1].figure == null) || ((board.BoardTable[i-1][j+1].figure != null) && (board.BoardTable[i-1][j+1].figure.color == "b")))
                     {
-                        board.BoardTable[i-1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j+1]);
                     }
                 }
@@ -120,7 +120,7 @@ class king
                 {
                     if((board.BoardTable[i+1][j-1].figure == null) || ((board.BoardTable[i+1][j-1].figure != null) && (board.BoardTable[i+1][j-1].figure.color == "b")))
                     {
-                        board.BoardTable[i+1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j-1]);
                     }
                 }
@@ -128,7 +128,7 @@ class king
                 {
                     if((board.BoardTable[i+1][j+1].figure == null) || ((board.BoardTable[i+1][j+1].figure != null) && (board.BoardTable[i+1][j+1].figure.color == "b")))
                     {
-                        board.BoardTable[i+1][j+1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i+1][j+1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i+1][j+1]);
                     }
                 }
@@ -136,7 +136,7 @@ class king
                 {
                     if((board.BoardTable[i-1][j-1].figure == null) || ((board.BoardTable[i-1][j-1].figure != null) && (board.BoardTable[i-1][j-1].figure.color == "b")))
                     {
-                        board.BoardTable[i-1][j-1].object.material.emissive.setHex( 0xff0000 );
+                        board.BoardTable[i-1][j-1].object.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
                         activePlans.push(board.BoardTable[i-1][j-1]);
                     }
                 }
