@@ -1,3 +1,6 @@
+/**
+ * @author Piotr Zieliński http://pzcv.cba.pl/
+ */
 gui = new dat.GUI();
 
 parameters = 
@@ -28,5 +31,4 @@ gui.add( parameters, 'play' ).name("Play game!");
 function playF()
 {
 gui.destroy();
-
 }

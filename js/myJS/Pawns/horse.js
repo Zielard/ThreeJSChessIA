@@ -1,4 +1,6 @@
-
+/**
+ * @author Piotr Zieliński http://pzcv.cba.pl/
+ */
 class horse
 {
     constructor(object_,color_) {

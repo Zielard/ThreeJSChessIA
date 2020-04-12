@@ -1,3 +1,6 @@
+/**
+ * @author Piotr Zieliński http://pzcv.cba.pl/
+ */
 class tower
 {
     constructor(object_,color_) {

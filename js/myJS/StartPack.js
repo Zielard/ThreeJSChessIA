@@ -146,7 +146,7 @@ var StartPack = {
 				geometry = geometry.copy(object.children[0].geometry);
 				let mesh = new THREE.Mesh( geometry, material );
 				mesh.position.y= -1.51;
-				mesh.rotation.y= 3.14/2;
+				mesh.rotation.y= -3.14/2;
 				boardObj = mesh;
 			scene.add(mesh);
 		}
@@ -272,7 +272,7 @@ AddPawns : function(windowThis) {
 					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
 				//King
-				if(j==3)
+				if(j==4)
 				{
 					let material = new THREE.MeshStandardMaterial( {
 						color: 0xffffff,
@@ -288,11 +288,12 @@ AddPawns : function(windowThis) {
 						material = material.copy(materialNormal);
 						material.flatShading =false;
 						let mesh = new THREE.Mesh( geometry, material );
-					if(j==3 && i == 7)
+						mesh.rotation.y = 3.14/2;
+					if(j==4 && i == 7)
 					{
 					board.BoardTable[i][j].figure = new king(mesh,"w");
 					}
-					else if(j==3 && i == 0)
+					else if(j==4 && i == 0)
 					{
 					board.BoardTable[i][j].figure = new king(mesh,"b");
 					mesh.material.color.set(0xC5B358);
@@ -303,7 +304,7 @@ AddPawns : function(windowThis) {
 					pawnsGroup.add(board.BoardTable[i][j].figure.object);
 				}
 				//Queen
-				if(j==4)
+				if(j==3)
 				{
 					let material = new THREE.MeshStandardMaterial( {
 						color: 0xffffff,
@@ -319,11 +320,11 @@ AddPawns : function(windowThis) {
 						material = material.copy(materialNormal);
 						material.flatShading =false;
 						let mesh = new THREE.Mesh( geometry, material );
-					if(j==4 && i == 7)
+					if(j==3 && i == 7)
 					{
 					board.BoardTable[i][j].figure = new queen(mesh,"w");
 					}
-					else if(j==4 && i == 0)
+					else if(j==3 && i == 0)
 					{
 					board.BoardTable[i][j].figure = new queen(mesh,"b");
 					mesh.material.color.set(0xC5B358);
@@ -367,101 +368,6 @@ AddPawns : function(windowThis) {
 				pawnsGroup.add(board.BoardTable[i][j].figure.object);
 			}
 		}
-	}
-}
-
-,
-AddHightFigure : function() {
-	let xForGrid = -15;
-	let yForGrid = 2;
-	let zForGrid = -15;
-	for(let i=1;i<9;i++)
-	{
-		let object;
-		if( i == 1)
-		{
-			object = pawns.wieza.clone();
-		}
-		else if( i == 2)
-		{
-			object = pawns.kon.clone();
-		}
-		else if( i == 3)
-		{
-			object = pawns.goniec.clone();
-		}
-		else if( i == 4)
-		{
-			object = pawns.krol.clone();
-		}
-		else if( i == 5)
-		{
-			object = pawns.krolowa.clone();
-		}
-		else if( i == 6)
-		{
-			object = pawns.goniec.clone();
-		}
-		else if( i == 7)
-		{
-			object = pawns.kon.clone();
-		}
-		else if( i == 8)
-		{
-			object = pawns.wieza.clone();
-		}
-			object.position.x = xForGrid;
-			object.position.y = yForGrid;
-			object.position.z = zForGrid;  
-			xForGrid +=5;   
-		scene.add(object);
-	}
-
-	xForGrid = -15;
-	yForGrid = 2;
-	zForGrid = 20;
-	var ModelMaterial = new THREE.MeshPhongMaterial( { color: 0x404a43} );	
-	for(let i=1;i<9;i++)
-	{
-		let object;
-		if( i == 1)
-		{
-			object = pawns.wieza.clone();
-		}
-		else if( i == 2)
-		{
-			object = pawns.kon.clone();
-		}
-		else if( i == 3)
-		{
-			object = pawns.goniec.clone();
-		}
-		else if( i == 4)
-		{
-			object = pawns.krol.clone();
-		}
-		else if( i == 5)
-		{
-			object = pawns.krolowa.clone();
-		}
-		else if( i == 6)
-		{
-			object = pawns.goniec.clone();
-		}
-		else if( i == 7)
-		{
-			object = pawns.kon.clone();
-		}
-		else if( i == 8)
-		{
-			object = pawns.wieza.clone();
-		}
-		object.children[0].material = ModelMaterial;
-			object.position.x = xForGrid;
-			object.position.y = yForGrid;
-			object.position.z = zForGrid;  
-			xForGrid +=5;   
-		scene.add(object);
 	}
 }
 

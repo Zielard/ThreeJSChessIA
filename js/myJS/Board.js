@@ -1,3 +1,4 @@
+
 class Plane 
 {
     constructor(position_,object_,stateNumber_,figure_) {
