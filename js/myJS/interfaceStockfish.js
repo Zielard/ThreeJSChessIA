@@ -9,6 +9,7 @@ function engineGame(options) {
     var displayScore = false;
     var time = { wtime: 300000, btime: 300000, winc: 2000, binc: 2000 };
     var playerColor = 'w';
+    var enemyColor = "b";
     var clockTimeoutID = null;
     var isEngineRunning = false;
     var evaluation_el = document.getElementById("evaluation");
@@ -16,7 +17,7 @@ function engineGame(options) {
     // do not pick up pieces if the game is over
     // only pick up pieces for White
     var onDragStart = function(source, piece, position, orientation) {
-        var re = playerColor == 'w';
+        //var re = playerColor == 'w';
             // if (game.game_over() ||
             //     piece.search(re) !== -1) {
             //     return false;
@@ -155,7 +156,7 @@ function engineGame(options) {
         //             uciCmd("go " + (time.depth ? "depth " + time.depth : ""));
         //         }
                  isEngineRunning = true;
-                 mustMoveColor="b";
+                 mustMoveColor=enemyColor;
         //     }
         //     if(game.history().length >= 2 && !time.depth && !time.nodes) {
         //         startClock();

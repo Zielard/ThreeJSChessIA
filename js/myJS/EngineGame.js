@@ -2,7 +2,7 @@
 //Global Array, all moves in board
 var mHistory = [];
 var yaxis = ["a","b","c","d","e","f","g","h"];
-
+var playGame = false;
 			//FOR RAYCST!!!//////////////////////////////////////////////////////////
 			var raycaster;
 			raycaster = new THREE.Raycaster();
@@ -139,53 +139,157 @@ var yaxis = ["a","b","c","d","e","f","g","h"];
 
 		};
 
-			animate();
+            animate();
+function movePicese(obj,x,y)
+{
+    obj.position.y = board.BoardTable[x][y].position.y;
+    var flag_1 = true;
+    var flag_2 = true;
+    var flagMore = false;
+    var flagLess = false;
+
+        if(obj.position.x == board.BoardTable[x][y].position.x)
+        {
+            flag_1 = false;
+        }
+        else if(obj.position.x > board.BoardTable[x][y].position.x)
+        {
+            if(flagLess == true)
+            {
+                flag_1 = false;
+            }
+            obj.position.x -= 0.25;
+            flagMore = true;
+        }
+        else if(obj.position.x < board.BoardTable[x][y].position.x)
+        {
+            if(flagMore == true)
+            {
+               flag_1 = false;
+            }
+            obj.position.x += 0.25;
+            flagLess = true;
+        }
+    
+    flagMore = false;
+    flagLess = false;
+
+         if(obj.position.z == board.BoardTable[x][y].position.z)
+         {
+            flag_2 = false;
+         }
+         else if(obj.position.z > board.BoardTable[x][y].position.z)
+         {
+             if(flagLess == true)
+             {
+                flag_2 = false;
+             }
+
+             obj.position.z -= 0.25;
+             flagMore = true;
+         }
+         else if(obj.position.z < board.BoardTable[x][y].position.z)
+         {
+            if(flagMore == true)
+            {
+               flag_2 = false;
+            }
+            obj.position.z += 0.25;
+             flagLess = true;
+         }
+         if( !((flag_1  == false) && (flag_2  == false)) )
+         {
+            requestAnimationFrame(function() {
+                movePicese(obj,x,y);
+                });
+                playGame = false;
+         }
+         else
+         {
+            playGame = true;
+            if(parameters.Gmode == "IA")
+            {
+                if(mustMoveColor == "w")
+                {
+                    game.doMove();
+                    mustMoveColor = "b";
+                }
+                else if(mustMoveColor == "b")
+                {
+                    //game.doMove();
+                    mustMoveColor = "w";
+                }
+                else
+                {
+                    console.log("Change color error invalid color in fun");
+                }
+            }
+            else if(parameters.Gmode == "PvP")
+            {
+                if(mustMoveColor == "w")
+                {
+                    mustMoveColor = "b";
+                }
+                else if(mustMoveColor == "b")
+                {
+                    mustMoveColor = "w";
+                }
+                else
+                {
+                    console.log("Change color error invalid color in fun");
+                }
+            }
+         }
+}
 function raycast()
 {
-    raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects( scene.children , true );
-        if ( intersects.length > 0 ) {
-
-
-                    if ( INTERSECTED != intersects[ 0 ].object.parent ) {
-                        if(intersects[ 0 ].object != boardObj)
-                        {
-                            if(lastSelectRay == null)
+    if(playGame == true)
+    {
+        raycaster.setFromCamera( mouse, camera );
+        var intersects = raycaster.intersectObjects( scene.children , true );
+            if ( intersects.length > 0 ) {
+    
+    
+                        if ( INTERSECTED != intersects[ 0 ].object.parent ) {
+                            if(intersects[ 0 ].object != boardObj)
                             {
-                            INTERSECTED = intersects[ 0 ].object;
-                            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                            INTERSECTED.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
-                            lastSelectRay = intersects[ 0 ].object;
-                            oldPlanePos = intersects[ 0 ].object;
-                            }
-                            if(lastSelectRay != intersects[ 0 ].object)
-                            {
-                                    lastSelectRay.material.emissive.setHex( 0x000000 );
-                                    INTERSECTED = intersects[ 0 ].object;
-                                    INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                                    INTERSECTED.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
-                                    lastSelectRay = intersects[ 0 ].object;
-
-                                    for(let i =0;i<activePlans.length;i++)
-                                    {
-                                        if(activePlans[i].object == lastSelectRay)
+                                if(lastSelectRay == null)
+                                {
+                                INTERSECTED = intersects[ 0 ].object;
+                                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                                INTERSECTED.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
+                                lastSelectRay = intersects[ 0 ].object;
+                                oldPlanePos = intersects[ 0 ].object;
+                                }
+                                if(lastSelectRay != intersects[ 0 ].object)
+                                {
+                                        lastSelectRay.material.emissive.setHex( 0x000000 );
+                                        INTERSECTED = intersects[ 0 ].object;
+                                        INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                                        INTERSECTED.material.emissive.setHex( parameters.Scolor.replace("#", "0x") );
+                                        lastSelectRay = intersects[ 0 ].object;
+    
+                                        for(let i =0;i<activePlans.length;i++)
                                         {
-                                            changePawnPosition();
+                                            if(activePlans[i].object == lastSelectRay)
+                                            {
+                                                changePawnPosition();
+                                            }
                                         }
-                                    }
-                                    activePlans = [];
+                                        activePlans = [];
+                                }
                             }
-                        }
+                    }
+                else
+                {
+                    lastSelectRay = null;
                 }
-            else
-            {
+            } else {
                 lastSelectRay = null;
+                if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( 0x000000);
+                INTERSECTED = null;
             }
-        } else {
-            lastSelectRay = null;
-            if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( 0x000000);
-            INTERSECTED = null;
-        }
+    }
 }	
 function findPawn()
 {
@@ -229,10 +333,6 @@ function changeEnemyPos(x,y)
             toY = i;
         }
     }
-    // console.log(fromY);
-    // console.log(fromX);
-    // console.log(toY);
-    // console.log(toX);
     if(board.BoardTable[8-toX][toY].figure != null)
     {
         if(board.BoardTable[8-toX][toY].figure.color == "b")
@@ -254,10 +354,11 @@ function changeEnemyPos(x,y)
     board.BoardTable[8-toX][toY].stateNumber = temp_state;
     board.BoardTable[8-toX][toY].figure = board.BoardTable[8-fromX][fromY].figure;
     board.BoardTable[8-fromX][fromY].figure = null;
-    //console.log(board.BoardTable[8-toX][toY].figure.object.position);
-    board.BoardTable[8-toX][toY].figure.object.position.x = board.BoardTable[8-toX][toY].position.x;
-    board.BoardTable[8-toX][toY].figure.object.position.z = board.BoardTable[8-toX][toY].position.z;
+    //board.BoardTable[8-toX][toY].figure.object.position.x = board.BoardTable[8-toX][toY].position.x;
+    //board.BoardTable[8-toX][toY].figure.object.position.z = board.BoardTable[8-toX][toY].position.z;
 
+    movePicese(board.BoardTable[8-toX][toY].figure.object ,8-toX,toY);
+    //mustMoveColor = playerColor;
     // for(let i =0;i<8;i++)
     // {
     //     var temp = 8-i+"|";
@@ -268,7 +369,7 @@ function changeEnemyPos(x,y)
     //     console.log(temp);
     // }
     // console.log(yaxis);
-    mustMoveColor = "w";
+
 }
 function changePawnPosition()
 {
@@ -321,27 +422,29 @@ function changePawnPosition()
                 board.BoardTable[planeIndex.x][planeIndex.y].stateNumber = temp_state;
                 board.BoardTable[planeIndex.x][planeIndex.y].figure = board.BoardTable[pawnIndex.x][pawnIndex.y].figure;
                 board.BoardTable[pawnIndex.x][pawnIndex.y].figure = null;
+                movePicese(oldPlanePos,planeIndex.x,planeIndex.y);
 
-                oldPlanePos.position.x = board.BoardTable[planeIndex.x][planeIndex.y].position.x;
-                oldPlanePos.position.y = board.BoardTable[planeIndex.x][planeIndex.y].position.y;
-                oldPlanePos.position.z = board.BoardTable[planeIndex.x][planeIndex.y].position.z;
+                //     if(oldPlanePos.position.z == board.BoardTable[planeIndex.x][planeIndex.y].position.z)
+                //     {
+                //         flag_2 = true;
+                //     }
+                //     else if(oldPlanePos.position.z > board.BoardTable[planeIndex.x][planeIndex.y].position.z)
+                //     {
+                //         oldPlanePos.position.z -= 0.1;
+                //     }
+                //     else if(oldPlanePos.position.z < board.BoardTable[planeIndex.x][planeIndex.y].position.z)
+                //     {
+                //         oldPlanePos.position.z += 0.1;
+                //     }
+                //     if(flag_1 && flag_2)
+                //     {
+                //         break;
+                //     }
+                // }
 
 
 
-                if(mustMoveColor == "w")
-                {
-                    game.doMove();
-                    mustMoveColor = "b";
-                }
-                else if(mustMoveColor == "b")
-                {
-                    //game.doMove();
-                    mustMoveColor = "b";
-                }
-                else
-                {
-                    console.log("Change color error invalid color in fun");
-                }
+
             i = 7;
             j = 7;
             }
