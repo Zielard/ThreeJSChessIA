@@ -8,10 +8,37 @@ var playGame = false;
 			raycaster = new THREE.Raycaster();
 			var mouse = new THREE.Vector2(), INTERSECTED;
 			var oldPlanePos;
-			var mustMoveColor = "w";
+            var mustMoveColor = "w";
+
+            // Create touchstart handler
+            document.addEventListener('touchstart', function(ev) {
+                    mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+                    mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;  
+              
+            }, false);
+
+            document.addEventListener('touchend', function(ev) {
+                if(lastSelectRay != null)
+                {
+                    if(raycastOn == true)
+                    {
+                        findPawn();
+                        raycastOn = !raycastOn;
+                    }
+                    else
+                    {
+                        oldPlanePos = lastSelectRay;
+                        for(let i =0;i<activePlans.length;i++)
+                        {
+                            activePlans[i].object.material.emissive.setHex( 0x000000 );
+                        }
+                        raycastOn = !raycastOn;
+                    }
+                }                  
+        }, false);
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			function onDocumentMouseMove( event ) {
-				event.preventDefault();
+                event.preventDefault();
 				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 			}
