@@ -67,21 +67,13 @@
       {
     
         newGame = function newGame() {
-            // var baseTime = parseFloat($('#timeBase').val()) * 60;
-            // var inc = parseFloat($('#timeInc').val());
-            // var skill = parseInt($('#skillLevel').val());
             game.reset();
-            //game.setTime(baseTime, inc);
             game.setSkillLevel(0);
-            game.setPlayerColor( 'w');
-            // game.setDisplayScore($('#showScore').is(':checked'));
+            game.setPlayerColor(parameters.Pcolor);
             game.start();
         }
-        
-        game.setSkillLevel
-        
-
     
+        //game.setSkillLevel
         newGame();
       }
       

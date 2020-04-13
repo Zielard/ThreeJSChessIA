@@ -5,8 +5,9 @@ gui = new dat.GUI();
 
 parameters = 
 {
-    Pcolor: "White",
-    Ecolor: "Black",
+    MPcolor: "White",
+    Pcolor: "w",
+    Ecolor: "b",
     Scolor:  "#ff0000", // color (change "#" to "0x")
     Gmode:  "IA", // color (change "#" to "0x")
     play: function() { playF() }
@@ -17,7 +18,7 @@ SelectColor.onChange(function(value) {
     parameters.Scolor =value.replace("#", "0x");   
 });
 
-var PlayerColor = gui.add( parameters, 'Pcolor', [ "White"] ).name('Player color').listen();
+var PlayerColor = gui.add( parameters, 'MPcolor', [ "White" , "Black"] ).name('Player color').listen();
 PlayerColor.onChange(function(value) { 
     if(value == "White")
     {
@@ -40,6 +41,7 @@ gui.add( parameters, 'play' ).name("Play game!");
 
 function playF()
 {
+    newGame();
 playGame = true;
 gui.destroy();
 }

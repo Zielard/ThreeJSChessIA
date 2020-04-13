@@ -6,6 +6,7 @@ class runner
     constructor(object_,color_) {
         this.object = object_;
         this.color = color_;
+        this.attacked= false;
         }
         showMove(i,j)
         {

@@ -37,7 +37,7 @@ function engineGame(options) {
     }, 1000);
 
     function uciCmd(cmd, which) {
-        console.log("UCI: " + cmd);
+        //console.log("UCI: " + cmd);
         
         (which || engine).postMessage(cmd);
     }
@@ -141,27 +141,23 @@ function engineGame(options) {
         // updateClock();
         // var turn = game.turn() == 'w' ? 'white' : 'black';
         // if(!game.game_over()) {
-        if(mustMoveColor == playerColor) {
-                //  uciCmd('position startpos moves' + "c2c3");
-                //  uciCmd('position startpos moves' + "c2c3", evaler);
-                console.log("Player move now!");
+            // console.log((mustMoveColor));
+            // console.log((playerColor == "b"));
+            // console.log(((mustMoveColor == enemyColor) && (playerColor == "b")));
+        //if((mustMoveColor == playerColor) && (playerColor == "w")) {
+
+                console.log("Player move now! C1 :" + playerColor);
                 uciCmd('position startpos moves' + get_moves());
                 uciCmd('position startpos moves' + get_moves(), evaler);
-                // evaluation_el.textContent = "";
                  uciCmd("eval", evaler);
                  uciCmd("go depth 1 wtime 300000 winc 2000 btime 300000 binc 2000");
-        //         if (time && time.wtime) {
-        //             uciCmd("go " + (time.depth ? "depth " + time.depth : "") + " wtime " + time.wtime + " winc " + time.winc + " btime " + time.btime + " binc " + time.binc);
-        //         } else {
-        //             uciCmd("go " + (time.depth ? "depth " + time.depth : ""));
-        //         }
                  isEngineRunning = true;
-                 mustMoveColor=enemyColor;
-        //     }
-        //     if(game.history().length >= 2 && !time.depth && !time.nodes) {
-        //         startClock();
-        //     }
-        }
+                 //mustMoveColor = enemyColor;
+        //}
+
+        //console.log("playerColor : " + playerColor);
+        //console.log("enemyColor : " + enemyColor);
+        //console.log("mustMoveColor : " + mustMoveColor);
     }
     
     evaler.onmessage = function(event) {
@@ -172,7 +168,7 @@ function engineGame(options) {
             line = event;
         }
         
-        console.log("evaler: " + line);
+        //console.log("evaler: " + line);
         
         /// Ignore some output.
         if (line === "uciok" || line === "readyok" || line.substr(0, 11) === "option name") {
@@ -187,13 +183,13 @@ function engineGame(options) {
 
     engine.onmessage = function(event) {
         var line;
-        console.log("engine move!");
+        //console.log("engine move!");
         if (event && typeof event === "object") {
             line = event.data;
         } else {
             line = event;
         }
-        console.log("Reply: " + line)
+        //console.log("Reply: " + line)
         if(line == 'uciok') {
             engineStatus.engineLoaded = true;
         } else if(line == 'readyok') {
@@ -272,6 +268,14 @@ function engineGame(options) {
         loadPgn: function(pgn) { g },
         setPlayerColor: function(color) {
             playerColor = color;
+            if(playerColor == "w")
+            {
+                enemyColor = "b";
+            }
+            else if(playerColor == "b")
+            {
+                enemyColor = "w";
+            }
             //board.orientation(playerColor);
         },
         setSkillLevel: function(skill) {
@@ -336,7 +340,11 @@ function engineGame(options) {
             engineStatus.engineReady = false;
             engineStatus.search = null;
             displayStatus();
-            //prepareMove();
+            if(playerColor == "b")
+            {
+                console.log(parameters.Pcolor);
+                prepareMove();
+            }
             announced_game_over = false;
         },
         doMove: function() {

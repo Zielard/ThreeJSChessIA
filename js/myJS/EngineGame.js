@@ -15,7 +15,7 @@ var playGame = false;
                     mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
                     mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;  
               
-            }, false);
+            }, true);
 
             document.addEventListener('touchend', function(ev) {
                 if(lastSelectRay != null)
@@ -35,7 +35,8 @@ var playGame = false;
                         raycastOn = !raycastOn;
                     }
                 }                  
-        }, false);
+            }, false);
+            
 			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 			function onDocumentMouseMove( event ) {
                 event.preventDefault();
@@ -236,15 +237,22 @@ function movePicese(obj,x,y)
             playGame = true;
             if(parameters.Gmode == "IA")
             {
-                if(mustMoveColor == "w")
+                if(mustMoveColor == parameters.Pcolor)
                 {
                     game.doMove();
-                    mustMoveColor = "b";
+                    //if(parameters.Pcolor == "w")
+                    //{
+                        mustMoveColor = parameters.Ecolor;
+                    //}
+
                 }
-                else if(mustMoveColor == "b")
+                else if(mustMoveColor == parameters.Ecolor)
                 {
                     //game.doMove();
-                    mustMoveColor = "w";
+                    //if(parameters.Pcolor == "w")
+                    //{
+                        mustMoveColor = parameters.Pcolor;
+                    //}
                 }
                 else
                 {
@@ -253,13 +261,13 @@ function movePicese(obj,x,y)
             }
             else if(parameters.Gmode == "PvP")
             {
-                if(mustMoveColor == "w")
+                if(mustMoveColor == parameters.Pcolor)
                 {
-                    mustMoveColor = "b";
+                    mustMoveColor = parameters.Ecolor;
                 }
-                else if(mustMoveColor == "b")
+                else if(mustMoveColor == parameters.Ecolor)
                 {
-                    mustMoveColor = "w";
+                    mustMoveColor = parameters.Pcolor;
                 }
                 else
                 {
@@ -328,6 +336,7 @@ function findPawn()
             {				
                 if(board.BoardTable[i][j].figure.object == lastSelectRay)
                 {
+                    console.log(mustMoveColor);
                     if(mustMoveColor == board.BoardTable[i][j].figure.color)
                     {
                         board.BoardTable[i][j].figure.showMove(i,j);
@@ -398,9 +407,26 @@ function changeEnemyPos(x,y)
     // console.log(yaxis);
 
 }
+function viewInConsoleLogicTable()
+{
+    for(let i =0;i<8;i++)
+    {
+        var temp = 8-i+"|";
+        for(let j =0;j<8;j++)
+        {
+            temp+=board.BoardTable[i][j].stateNumber+",";
+        }
+        console.log(temp);
+    }
+    var temp = "";
+    for(let j =0;j<8;j++)
+    {
+        temp+=yaxis[j]+"|";
+    }
+    console.log(temp);
+}
 function changePawnPosition()
 {
-    console.log("True change");
     let find_pawn = false;
     let find_plane = false;
     var pawnIndex = new THREE.Vector2( 0, 0 );
@@ -451,27 +477,7 @@ function changePawnPosition()
                 board.BoardTable[pawnIndex.x][pawnIndex.y].figure = null;
                 movePicese(oldPlanePos,planeIndex.x,planeIndex.y);
 
-                //     if(oldPlanePos.position.z == board.BoardTable[planeIndex.x][planeIndex.y].position.z)
-                //     {
-                //         flag_2 = true;
-                //     }
-                //     else if(oldPlanePos.position.z > board.BoardTable[planeIndex.x][planeIndex.y].position.z)
-                //     {
-                //         oldPlanePos.position.z -= 0.1;
-                //     }
-                //     else if(oldPlanePos.position.z < board.BoardTable[planeIndex.x][planeIndex.y].position.z)
-                //     {
-                //         oldPlanePos.position.z += 0.1;
-                //     }
-                //     if(flag_1 && flag_2)
-                //     {
-                //         break;
-                //     }
-                // }
-
-
-
-
+                //viewInConsoleLogicTable();
             i = 7;
             j = 7;
             }
